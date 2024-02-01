@@ -1,17 +1,22 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
-export default function LogIn({navigation}) {
+export default function SignUp({navigation}) {
   return (
     <View style={styles.container}>
-      <Text>Log In</Text>
-      <Button title="Log In"/>
-
-      <Text>Don't have an account?</Text>
+      <Text>*Create an account*</Text>
       <Button
         title="Sign Up"
         onPress={() => {
-          navigation.navigate('Sign Up');
+          navigation.navigate("Home");
+        }}
+      />
+
+      <Text>Already have an account?</Text>
+      <Button
+        title="Log In"
+        onPress={() => {
+          navigation.navigate('Home');
         }}
       />
     </View>

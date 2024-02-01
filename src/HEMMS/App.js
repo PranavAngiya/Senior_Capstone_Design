@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LogIn from './components/login';
-import SignUp from './components/signup';
+import SignUp from './components/Sign_Up';
+import Main from './components/Main';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +12,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen}/>
-        <Stack.Screen name="Log In" component={LogIn} options={{ headerShown: true }}/>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }}/>
         <Stack.Screen name="Sign Up" component={SignUp} options={{ headerShown: true }}/>
+        <Stack.Screen name="Main" component={Main} options={{ headerShown: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -25,11 +25,11 @@ function HomeScreen({navigation}) {
     <View style={styles.container}>
       <Text>Welcome to H.E.M.M.S.!</Text>
 
-      <Text>Already have an account?</Text>
+      <Text>*Log in*</Text>
       <Button
         title="Log In"
         onPress={() => {
-          navigation.navigate('Log In');
+          navigation.navigate('Main');
         }}
       />
       
