@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default function Main({navigation}) {
+export default function Main() {
   return (
     <View style={styles.container}>
       <Text>*Show graph*</Text>

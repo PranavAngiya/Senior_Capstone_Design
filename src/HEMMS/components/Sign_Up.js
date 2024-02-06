@@ -1,15 +1,36 @@
-import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function SignUp({navigation}) {
+  const [Fname, setFname] = useState('');
+  const [Lname, setLname] = useState('');
+  const HandleSignUp = () => {
+    if (Fname === 'example' && Lname === 'password') {
+      navigation.navigate('Home');
+    } else {
+      alert('Invalid');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text>*Create an account*</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="First Name"
+        onChangeText={text => setFname(text)}
+        value={Fname}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        onChangeText={text => setLname(text)}
+        value={Lname}
+        secureTextEntry={true}
+      />
       <Button
-        title="Sign Up"
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
+        title="Create Account"
+        onPress={HandleSignUp}
       />
 
       <Text>Already have an account?</Text>
@@ -31,5 +52,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop:10,
     marginTop:10,
+  },
+  input: {
+    height: 40,
+    width: '80%',
+    borderColor: 'gray',
+    borderWidth:1,
+    marginVertical:10,
+    paddingHorizontal:10,
   },
 })

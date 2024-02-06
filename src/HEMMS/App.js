@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -21,18 +22,39 @@ export default function App() {
 }
 
 function HomeScreen({navigation}) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const HandleLogIn = () => {
+    if (username === 'example' && password === 'password') {
+      navigation.navigate('Main');
+    } else {
+      alert('Invalid username or password.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text>Welcome to H.E.M.M.S.!</Text>
 
-      <Text>*Log in*</Text>
+      <Text>*Log In*</Text>
+      <TextInput
+          style={styles.input}
+          placeholder="Username"
+          onChangeText={text => setUsername(text)}
+          value={username}
+      />
+      <TextInput
+          style={styles.input}
+          placeholder="Password"
+          onChangeText={text => setPassword(text)}
+          value={password}
+          secureTextEntry={true}
+      />
       <Button
         title="Log In"
-        onPress={() => {
-          navigation.navigate('Main');
-        }}
+        onPress={HandleLogIn}
       />
-      
+
       <Text>Don't have an account?</Text>
       <Button
         title="Sign Up"
@@ -53,5 +75,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom:10,
     marginBottom:10,
+  },
+  input: {
+    height: 40,
+    width: '80%',
+    borderColor: 'gray',
+    borderWidth:1,
+    marginVertical:10,
+    paddingHorizontal:10,
   },
 });
