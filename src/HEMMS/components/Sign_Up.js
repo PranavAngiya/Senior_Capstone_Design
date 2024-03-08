@@ -14,7 +14,7 @@ export default function SignUp({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text>*Create an account*</Text>
+      <Text>Create an Account!</Text>
       <TextInput
         style={styles.input}
         placeholder="First Name"
@@ -32,7 +32,6 @@ export default function SignUp({navigation}) {
         title="Create Account"
         onPress={HandleSignUp}
       />
-
       <Text>Already have an account?</Text>
       <Button
         title="Log In"

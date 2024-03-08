@@ -1,0 +1,24 @@
+[
+  {
+    "date": "03/08/2024",
+    "time": "12:00",
+    "power": 15.2,
+    "location": {
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "city": "San Francisco",
+      "state": "CA"
+    }
+  },
+  {
+    "date": "03/08/2024",
+    "time": "12:05",
+    "power": 16.5,
+    "location": {
+      "latitude": 40.7128,
+      "longitude": -74.0060,
+      "city": "New York",
+      "state": "NY"
+    }
+  }
+]

@@ -35,8 +35,6 @@ function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Text>Welcome to H.E.M.M.S.!</Text>
-
-      <Text>*Log In*</Text>
       <TextInput
           style={styles.input}
           placeholder="Username"
@@ -54,7 +52,6 @@ function HomeScreen({navigation}) {
         title="Log In"
         onPress={HandleLogIn}
       />
-
       <Text>Don't have an account?</Text>
       <Button
         title="Sign Up"
