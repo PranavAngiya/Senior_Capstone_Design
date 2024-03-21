@@ -5,7 +5,7 @@ import * as scale from 'd3-scale';
 
 import data from '../data/data.json';
 
-export default function Main() {
+export default function Main({navigation}) {
   const [showPowerGraph, setShowPowerGraph] = useState(true);
   const [graphData, setGraphData] = useState([]);
 
@@ -30,6 +30,7 @@ export default function Main() {
       <Text style={styles.graphTitle}>
         {showPowerGraph ? 'Power Graph' : 'Cost Graph'}
       </Text>
+      
       <View style={styles.graphContainer}>
         <View style={styles.graph}>
           <YAxis
@@ -64,6 +65,25 @@ export default function Main() {
         <Button
           title={showPowerGraph ? 'Show Cost Graph' : 'Show Power Graph'}
           onPress={toggleGraph}
+        />
+
+        <Button
+          title="Devices"
+          onPress={() => {
+            navigation.navigate('Devices'); // Navigate to 'Devices' screen
+          }}
+        />
+        <Button
+          title="Profile"
+          onPress={() => {
+            navigation.navigate('Profile'); // Navigate to 'Devices' screen
+          }}
+        />
+        <Button
+          title="Notifications"
+          onPress={() => {
+            navigation.navigate('Notifications'); // Navigate to 'Devices' screen
+          }}
         />
       </View>
     </View>

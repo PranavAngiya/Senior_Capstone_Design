@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 export default function SignUp({navigation}) {
   const [Fname, setFname] = useState('');
   const [Lname, setLname] = useState('');
+  const [Lrname, setLrname] = useState('');
+  const [Place, setPlace] = useState('');
   const HandleSignUp = () => {
     if (Fname === 'example' && Lname === 'password') {
       navigation.navigate('Home');
@@ -17,21 +19,41 @@ export default function SignUp({navigation}) {
       <Text>Create an Account!</Text>
       <TextInput
         style={styles.input}
-        placeholder="First Name"
+        placeholder="Email"
         onChangeText={text => setFname(text)}
         value={Fname}
+        secureTextEntry={true}
       />
+
       <TextInput
         style={styles.input}
-        placeholder="Last Name"
+        placeholder="Password"
         onChangeText={text => setLname(text)}
         value={Lname}
         secureTextEntry={true}
       />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        onChangeText={text => setLrname(text)}
+        value={Lrname}
+        secureTextEntry={true}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Place of Residency"
+        onChangeText={text => setPlace(text)}
+        value={Place}
+        secureTextEntry={true}
+      />
+
       <Button
         title="Create Account"
         onPress={HandleSignUp}
       />
+
       <Text>Already have an account?</Text>
       <Button
         title="Log In"
