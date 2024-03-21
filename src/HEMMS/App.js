@@ -8,7 +8,7 @@ import SignUp from './components/Sign_Up';
 import Main from './components/Main';
 import Device from './components/Device';
 import Profile from './components/Profile';
-import Notifications from './components/Notifications';
+import Notification from './components/Notifications';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +21,7 @@ export default function App() {
         <Stack.Screen name="Main" component={Main} options={{ headerShown: true }}/>
         <Stack.Screen name="Devices" component={Device} options={{ headerShown: true }}/>
         <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }}/>
-        <Stack.Screen name="Notifications" component={Notifications} options={{ headerShown: true }}/>
+        <Stack.Screen name="Notifications" component={Notification} options={{ headerShown: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

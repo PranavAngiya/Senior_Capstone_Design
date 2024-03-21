@@ -19,9 +19,9 @@ export default function Main({navigation}) {
 
   const renderYAxisLabel = value => {
     if (showPowerGraph) {
-      return `${value} kWh`;
+      return `${value} KWh`;
     } else {
-      return `$${value}`;
+      return `$ ${value}`;
     }
   };
 
@@ -56,7 +56,7 @@ export default function Main({navigation}) {
               xAccessor={({ index }) => index}
               scale={scale.scaleTime}
               numberOfTicks={5}
-              formatLabel={(value, index) =>
+              formatLabel={(_value, index) =>
                 graphData[index] ? graphData[index].time : ''
               }
             />
@@ -70,19 +70,19 @@ export default function Main({navigation}) {
         <Button
           title="Devices"
           onPress={() => {
-            navigation.navigate('Devices'); // Navigate to 'Devices' screen
+            navigation.navigate('Devices');
           }}
         />
         <Button
           title="Profile"
           onPress={() => {
-            navigation.navigate('Profile'); // Navigate to 'Devices' screen
+            navigation.navigate('Profile');
           }}
         />
         <Button
           title="Notifications"
           onPress={() => {
-            navigation.navigate('Notifications'); // Navigate to 'Devices' screen
+            navigation.navigate('Notifications');
           }}
         />
       </View>

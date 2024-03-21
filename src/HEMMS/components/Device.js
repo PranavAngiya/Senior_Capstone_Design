@@ -1,39 +1,27 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function Device({navigation}) {
-  const [Fname, setFname] = useState('');
-  const [Lname, setLname] = useState('');
-  const [Lrname, setLrname] = useState('');
-  const [Place, setPlace] = useState('');
-  const HandleSignUp = () => {
-    if (Fname === 'example' && Lname === 'password') {
-      navigation.navigate('Home');
-    } else {
-      alert('Invalid');
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <Text>Device Management</Text>
+      <Text>Devices</Text>
 
       <Button
           title="Profile"
           onPress={() => {
-            navigation.navigate('Profile'); // Navigate to 'Devices' screen
+            navigation.navigate('Profile');
           }}
         />
         <Button
           title="Main"
           onPress={() => {
-            navigation.navigate('Main'); // Navigate to 'Devices' screen
+            navigation.navigate('Main');
           }}
         />
       <Button
           title="Notifications"
           onPress={() => {
-            navigation.navigate('Notifications'); // Navigate to 'Devices' screen
+            navigation.navigate('Notifications');
           }}
       />
     </View>

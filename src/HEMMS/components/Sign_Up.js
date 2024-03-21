@@ -7,7 +7,7 @@ export default function SignUp({navigation}) {
   const [Lrname, setLrname] = useState('');
   const [Place, setPlace] = useState('');
   const HandleSignUp = () => {
-    if (Fname === 'example' && Lname === 'password') {
+    if (Fname === 'example' && Lname === 'password' && Lrname === 'password' && Place === 'random') {
       navigation.navigate('Home');
     } else {
       alert('Invalid');
