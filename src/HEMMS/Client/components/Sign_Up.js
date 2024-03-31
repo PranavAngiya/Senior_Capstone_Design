@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 export default function SignUp({navigation}) {
   const [Fname, setFname] = useState('');
@@ -14,8 +14,42 @@ export default function SignUp({navigation}) {
     }
   };
 
+  const [users, setUsers] = useState([]);
+  
+  useEffect(() => {
+    fetchUsers();
+  }, [] );
+
+  const fetchUsers = () => {
+    fetch("http://localhost:5000/api")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => setUsers(data.users))
+      .catch(error => console.error('Error fetching data:', error));
+  };
+
+  // const [data, setData] = React.useState(null);
+  // React.useEffect(() => {
+  //   fetch("http://localhost:5000/api")
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.message));
+  // }, [])
+
   return (
     <View style={styles.container}>
+      <FlatList
+        style={{ marginTop: 20 }}
+        data={users}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <Text>{item}</Text>}
+      />
+
+      {/* <Text>{data}</Text> */}
+
       <Text>Create an Account!</Text>
       <TextInput
         style={styles.input}
