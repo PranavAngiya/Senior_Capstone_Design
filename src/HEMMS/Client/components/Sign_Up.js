@@ -32,13 +32,6 @@ export default function SignUp({navigation}) {
       .catch(error => console.error('Error fetching data:', error));
   };
 
-  // const [data, setData] = React.useState(null);
-  // React.useEffect(() => {
-  //   fetch("http://localhost:5000/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, [])
-
   return (
     <View style={styles.container}>
       <FlatList
@@ -47,8 +40,6 @@ export default function SignUp({navigation}) {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <Text>{item}</Text>}
       />
-
-      {/* <Text>{data}</Text> */}
 
       <Text>Create an Account!</Text>
       <TextInput
