@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+const port = 5050
+const url = "http://localhost:" + port;
 
 export default function SignUp({navigation}) {
   const [Fname, setFname] = useState('');
@@ -21,7 +23,7 @@ export default function SignUp({navigation}) {
   }, [] );
 
   const fetchUsers = () => {
-    fetch("http://localhost:5000/api")
+    fetch(url + "/api")
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
