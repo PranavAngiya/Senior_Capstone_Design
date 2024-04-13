@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
 import * as scale from 'd3-scale';

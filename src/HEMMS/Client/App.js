@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,29 +11,39 @@ import Device from './components/Device';
 import Profile from './components/Profile';
 import Notification from './components/Notifications';
 
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }}/>
-        <Stack.Screen name="Sign Up" component={SignUp} options={{ headerShown: true }}/>
-        <Stack.Screen name="Main" component={Main} options={{ headerShown: true }}/>
-        <Stack.Screen name="Devices" component={Device} options={{ headerShown: true }}/>
-        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: true }}/>
-        <Stack.Screen name="Notifications" component={Notification} options={{ headerShown: true }}/>
-      </Stack.Navigator>
+      {isLoggedIn ? (
+        <Tab.Navigator>
+          <Tab.Screen name="Main" component={Main} />
+          <Tab.Screen name="Devices" component={Device} />
+          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Notifications" component={Notification} />
+        </Tab.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Home">
+            {props => <HomeScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
+          </Stack.Screen>
+          <Stack.Screen name="Sign Up" component={SignUp} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation, setIsLoggedIn }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const HandleLogIn = () => {
     if (username === 'example' && password === 'password') {
-      navigation.navigate('Main');
+      setIsLoggedIn(true);
     } else {
       alert('Invalid username or password.');
     }
