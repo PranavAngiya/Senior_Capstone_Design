@@ -8,7 +8,7 @@ const Home = () => {
 
   const onRefresh = async () => {
     setRefreshing(true)
-    // re call graph -> if any new data appeared
+    // re call home -> if any new data appeared
     setRefreshing(false)
   }
 

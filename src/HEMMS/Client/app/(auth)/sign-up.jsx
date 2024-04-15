@@ -2,7 +2,6 @@ import { View, Text, ScrollView, Image } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, Link } from "expo-router";
-import RNPickerSelect from 'react-native-picker-select';
 
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
@@ -58,7 +57,7 @@ const SignUp = () => {
           />
 
           <CustomButton
-            title="Sign In"
+            title="Sign Up"
             handlePress={() => router.push('/home')}
             containerStyles="mt-6"
           />

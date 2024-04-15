@@ -12,20 +12,35 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
       <Text className="text-base text-gray-100 font-medium">{title}</Text>
 
       <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary items-center flex-row">
-        {title === "Place of Residence" ? (
+        {(title === "Place of Residence" || title === "Change Place of Residence") ? (
           <RNPickerSelect
             onValueChange={handleChangeText}
             items={props.options}
             value={value}
             placeholder={{ label: placeholder }}
-            // style={{
-            //   placeholder: {          
-            //     flex: 1,
-            //     fontFamily: 'Poppins-SemiBold',
-            //     fontSize: 16,
-            //     color: '#7B7B8B'
-            //   }
-            // }}
+            style={{
+              inputIOS: {
+                flex: 1,
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: 16,
+                paddingTop: 30,
+                color: 'white'
+              },
+              inputAndroid: {
+                flex: 1,
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: 16,
+                paddingTop: 30,
+                color: 'white'
+              },
+              placeholder: {
+                flex: 1,
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: 16,
+                paddingTop: 30,
+                color: '#7B7B8B'
+              }
+            }}
           />
         ) : (
           <TextInput
@@ -34,11 +49,11 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
             placeholder={placeholder}
             placeholderTextColor="#7B7B8B"
             onChangeText={handleChangeText}
-            secureTextEntry={(title === "Password" || title === "Confirm Password") && !showPassword}
+            secureTextEntry={(title === "Password" || title === "Confirm Password" || title === "Change Password") && !showPassword}
           />
         )}
 
-        {(title === "Password" || title === "Confirm Password") && (
+        {(title === "Password" || title === "Confirm Password" || title === "Change Password") && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image source={!showPassword ? icons.eye : icons.eyeHide} className="w-6 h-6" resizeMode="contain" />
           </TouchableOpacity>
