@@ -1,5 +1,6 @@
-import { View, Image, FlatList, TouchableOpacity } from "react-native";
+import { View, Image, FlatList, RefreshControl, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
 import { router } from "expo-router";
 
 import { icons, images } from "../../constants";
@@ -9,6 +10,14 @@ const Profile = () => {
   const logout = async () => {
     router.replace("../sign-in");
   };
+
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    // re call graph -> if any new data appeared
+    setRefreshing(false)
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -41,6 +50,7 @@ const Profile = () => {
             </View>
           </View>
         )}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
     </SafeAreaView>
   );
