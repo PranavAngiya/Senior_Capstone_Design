@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-native-community/slider": "^4.5.2",
     "@react-native-picker/picker": "^2.7.5",
+    "d3": "^7.9.0",
     "expo": "~50.0.14",
     "expo-av": "~13.10.5",
     "expo-constants": "~15.4.5",

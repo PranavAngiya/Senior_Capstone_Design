@@ -4,7 +4,6 @@ import Slider from '@react-native-community/slider';
 
 import { images } from '../../constants';
 import data from '../../constants/data';
-import Graph from '../../components/graph';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false)
