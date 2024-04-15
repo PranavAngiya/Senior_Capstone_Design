@@ -1,20 +1,21 @@
 import { View, Text, ScrollView, Image } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from "expo-router";
+import { router, Link } from "expo-router";
+import RNPickerSelect from 'react-native-picker-select';
 
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
-import { Link } from 'expo-router';
+import usStates from '../../constants/usStates';
 
 const SignUp = () => {
-  const [form, setform] = useState({
+  const [form, setForm] = useState({
     username: '',
     password: '',
     confirmPassword: '',
-    placeOfResidence: '',
-  })
+    selectedState: ''
+  });
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -25,48 +26,51 @@ const SignUp = () => {
 
           <FormField
             title="Username"
-            placeholder={form.username}
-            handleChangeText={(e) => setform({ ...form, username: e })}
-            otherStyles="mt-10"
+            placeholder="Enter username"
+            value={form.username}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
+            otherStyles="mt-8"
           />
 
           <FormField
             title="Password"
-            placeholder={form.password}
-            handleChangeText={(e) => setform({ ...form, password: e })}
-            otherStyles="mt-7"
+            placeholder="Enter password"
+            value={form.password}
+            handleChangeText={(e) => setForm({ ...form, password: e })}
+            otherStyles="mt-6"
           />
 
           <FormField
             title="Confirm Password"
-            placeholder={form.confirmPassword}
-            handleChangeText={(e) => setform({ ...form, ConfirmPassword: e })}
-            otherStyles="mt-7"
+            placeholder="Enter password"
+            value={form.confirmPassword}
+            handleChangeText={(e) => setForm({ ...form, confirmPassword: e })}
+            otherStyles="mt-6"
           />
 
           <FormField
             title="Place of Residence"
-            placeholder={form.placeOfResidence}
-            handleChangeText={(e) => setform({ ...form, placeOfResidence: e })}
-            otherStyles="mt-7"
+            placeholder="Select state"
+            value={form.selectedState}
+            handleChangeText={(e) => setForm({ ...form, selectedState: e })}
+            otherStyles="mt-6"
+            options={usStates.map(state => ({label: state.value, value: state.value}))} // Pass the options as props
           />
 
           <CustomButton
             title="Sign In"
             handlePress={() => router.push('/home')}
-            containerStyles="mt-7"
+            containerStyles="mt-6"
           />
 
-          <View className="justify-center pd-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-pregular">
-              Have an account already?
-            </Text>
-            <Link href="/sign-in" className="text-lg font-psemibold text-secondary">Sign In</Link>
+          <View className="flex-row justify-center mt-6">
+            <Text className="text-lg text-gray-100">Have an account already?</Text>
+            <Link href="/sign-in" className="text-lg font-semibold text-secondary ml-1">Sign In</Link>
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default SignUp;
