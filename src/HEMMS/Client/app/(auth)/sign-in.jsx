@@ -23,14 +23,16 @@ const SignIn = () => {
 
           <FormField
             title="Username"
-            placeholder={form.username}
+            placeholder="Enter username"
+            value={form.username}
             handleChangeText={(e) => setform({ ...form, username: e })}
             otherStyles="mt-10"
           />
 
           <FormField
             title="Password"
-            placeholder={form.password}
+            placeholder="Enter password"
+            value={form.password}
             handleChangeText={(e) => setform({ ...form, password: e })}
             otherStyles="mt-7"
           />
