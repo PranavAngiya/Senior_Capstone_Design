@@ -43,7 +43,7 @@ const SignIn = () => {
             containerStyles="mt-7"
           />
 
-          <View className="justify-center pd-5 flex-row gap-2">
+          <View className="justify-center pd-5 flex-row gap-2 mt-6">
             <Text className="text-lg text-gray-100 font-pregular">
               Don't have an account?
             </Text>
