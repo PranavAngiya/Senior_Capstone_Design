@@ -1,23 +1,12 @@
-import React from 'react';
-import { VictoryLine, VictoryChart, VictoryAxis } from 'victory-native';
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const Graph = ({ graphData, xDataKey, yDataKey }) => {
+const Graph = () => {
   return (
-    <VictoryChart>
-      <VictoryLine
-        data={graphData}
-        x={xDataKey}
-        y={yDataKey}
-      />
-      <VictoryAxis
-        dependentAxis
-        label={yDataKey}
-      />
-      <VictoryAxis
-        label={xDataKey}
-      />
-    </VictoryChart>
-  );
-};
+    <View>
+      <Text>Graph</Text>
+    </View>
+  )
+}
 
 export default Graph;
