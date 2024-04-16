@@ -1,3 +1,4 @@
+
 export type CostDataPoint = {
   date: string;
   value: number;
