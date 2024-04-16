@@ -14,17 +14,16 @@ type LineChartProps = {
 };
 
 const LineChart: FC<LineChartProps> = ({ height, width, data, leftPadding, bottomPadding }) => {
-  // Function to map data points to SVG path
   const dataToPath = (data: GraphData[]): string => {
     if (data.length === 0) return '';
-
+  
     const maxValue = Math.max(...data.map(point => point.value));
     const path = data.reduce((acc, point, index) => {
       const x = (index / (data.length - 1)) * (width - leftPadding);
       const y = height - (point.value / maxValue) * (height - bottomPadding);
       return acc + `${index === 0 ? 'M' : 'L'}${x},${y}`;
     }, '');
-
+  
     return path;
   };
 
