@@ -9,7 +9,9 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
 
   return (
     <View className={`space-y-2 ${otherStyles}`}>
-      <Text className="text-base text-gray-100 font-medium">{title}</Text>
+      <Text className="text-base text-gray-100 font-medium">
+        {title}
+      </Text>
 
       <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary items-center flex-row">
         {(title === "Place of Residence" || title === "Change Place of Residence") ? (
@@ -52,10 +54,13 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
             secureTextEntry={(title === "Password" || title === "Confirm Password" || title === "Change Password") && !showPassword}
           />
         )}
-
         {(title === "Password" || title === "Confirm Password" || title === "Change Password") && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Image source={!showPassword ? icons.eye : icons.eyeHide} className="w-6 h-6" resizeMode="contain" />
+            <Image
+              source={!showPassword ? icons.eye : icons.eyeHide}
+              className="w-6 h-6"
+              resizeMode="contain"
+            />
           </TouchableOpacity>
         )}
       </View>

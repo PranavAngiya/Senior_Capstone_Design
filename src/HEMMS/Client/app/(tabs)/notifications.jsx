@@ -23,7 +23,11 @@ const Notifications = () => {
             </ScrollView>
           </View>
         )}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+
+        refreshControl={<RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />}
       />
     </SafeAreaView>
   )

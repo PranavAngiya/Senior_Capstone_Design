@@ -18,8 +18,15 @@ const SignIn = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View className="w-full justify-center min-h-[83vh] px-4 my-6">
-          <Image source={images.logo} resizeMode="contain" className="w-[115px] h-[35px]"/>
-          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">Log in to HEMMS</Text>
+          <Image
+            source={images.logo}
+            resizeMode="contain"
+            className="w-[115px] h-[35px]"
+          />
+
+          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
+            Log in to HEMMS
+          </Text>
 
           <FormField
             title="Username"
@@ -28,7 +35,6 @@ const SignIn = () => {
             handleChangeText={(e) => setform({ ...form, username: e })}
             otherStyles="mt-10"
           />
-
           <FormField
             title="Password"
             placeholder="Enter password"
@@ -47,7 +53,13 @@ const SignIn = () => {
             <Text className="text-lg text-gray-100 font-pregular">
               Don't have an account?
             </Text>
-            <Link href="/sign-up" className="text-lg font-psemibold text-secondary">Sign Up</Link>
+
+            <Link
+              href="/sign-up"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Sign Up
+            </Link>
           </View>
         </View>
       </ScrollView>

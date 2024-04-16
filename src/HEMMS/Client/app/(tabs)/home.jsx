@@ -1,9 +1,7 @@
 import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
 import React, { useState } from 'react';
-import Slider from '@react-native-community/slider';
 
 import { images } from '../../constants';
-import data from '../../constants/data';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false)
@@ -37,20 +35,27 @@ const Home = () => {
                 />
               </View>
             </View>
-
             <View className="w-full flex-1 pt-5 pb-8 justify-center items-center px-4">
-              {/* <Image source={images.empty} className="w-[270px] h-[215px]" resizeMode='contain' /> */}
+              <Image
+                source={images.empty}
+                className="w-[270px] h-[215px]"
+                resizeMode='contain'
+              />
 
               <Text className="text-xl text-center font-psemibold text-white mt-2">
                 Real-time updates on your home energy usage
               </Text>
-              {/* <Text className="font-pmedium text-sm text-gray-100">
+              <Text className="font-pmedium text-sm text-gray-100">
                 No Graphs Found
-              </Text> */}
+              </Text>
             </View>
           </View>
         )}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+
+        refreshControl={<RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />}
       />
     </SafeAreaView>
   )

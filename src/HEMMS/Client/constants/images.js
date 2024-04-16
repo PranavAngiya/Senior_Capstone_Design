@@ -5,4 +5,11 @@ import logo from "../assets/images/logo.jpg";
 import logoSmall from "../assets/images/logo-small.png";
 import empty from "../assets/images/empty.png";
 
-export default { profile, thumbnail, path, logo, logoSmall, empty };
+export default {
+  profile,
+  thumbnail,
+  path,
+  logo,
+  logoSmall,
+  empty
+};

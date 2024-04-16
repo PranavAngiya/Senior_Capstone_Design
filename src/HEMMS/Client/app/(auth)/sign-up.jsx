@@ -20,8 +20,15 @@ const SignUp = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View className="w-full justify-center min-h-[83vh] px-4 my-6">
-          <Image source={images.logo} resizeMode="contain" className="w-[115px] h-[35px]"/>
-          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">Sign up to HEMMS</Text>
+          <Image
+            source={images.logo}
+            resizeMode="contain"
+            className="w-[115px] h-[35px]"
+          />
+
+          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
+            Sign up to HEMMS
+          </Text>
 
           <FormField
             title="Username"
@@ -30,7 +37,6 @@ const SignUp = () => {
             handleChangeText={(e) => setForm({ ...form, username: e })}
             otherStyles="mt-10"
           />
-
           <FormField
             title="Password"
             placeholder="Enter password"
@@ -38,7 +44,6 @@ const SignUp = () => {
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
           />
-
           <FormField
             title="Confirm Password"
             placeholder="Enter password"
@@ -46,7 +51,6 @@ const SignUp = () => {
             handleChangeText={(e) => setForm({ ...form, confirmPassword: e })}
             otherStyles="mt-7"
           />
-
           <FormField
             title="Place of Residence"
             placeholder="Select state"
@@ -66,7 +70,13 @@ const SignUp = () => {
             <Text className="text-lg text-gray-100 font-pregular">
               Have an account already?
             </Text>
-            <Link href="/sign-in" className="text-lg font-psemibold text-secondary">Sign In</Link>
+
+            <Link
+              href="/sign-in"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Sign In
+            </Link>
           </View>
         </View>
       </ScrollView>

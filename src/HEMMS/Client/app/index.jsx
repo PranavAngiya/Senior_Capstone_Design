@@ -20,7 +20,9 @@ export default function App() {
           <View className="relative mt-5">
             <Text className="text-3xl text-white font-bold text-center">
               Empower Your Home & Energize Your Future with{' '}
-            <Text className="text-secondary-200">HEMMS</Text>
+              <Text className="text-secondary-200">
+                HEMMS
+              </Text>
             </Text>
 
             <Image
@@ -42,7 +44,10 @@ export default function App() {
         </View>
       </ScrollView>
 
-      <StatusBar backgroundColor="#161622" style="light" />
+      <StatusBar
+        backgroundColor="#161622"
+        style="light"
+      />
     </SafeAreaView>
   );
 }
