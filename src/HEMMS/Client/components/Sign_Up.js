@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 const port = 5050
-const url = "http://localhost:" + port;
+const url = "http://172.31.195.44:" + port;
 
 export default function SignUp({navigation}) {
   const [Fname, setFname] = useState('');
