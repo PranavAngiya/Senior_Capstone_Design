@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "expo": "^50.0.15",
+    "readline-sync": "^1.4.10"
+  }
+}
