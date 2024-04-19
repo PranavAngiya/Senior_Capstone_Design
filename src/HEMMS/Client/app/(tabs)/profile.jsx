@@ -36,13 +36,11 @@ const Profile = () => {
         onRefresh={onRefresh}
       />}>
         <View className="my-6 px-4 space-y-6">
-          <ScrollView className="px-4 my-6">
-            <Text className="text-2xl text-white font-semibold">
+          <View className="px-4 my-6">
+            <Text className="text-2xl text-white font-psemibold">
               View Profile
             </Text>
-          </ScrollView>
 
-          <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity
               onPress={logout}
               className="flex w-full items-end mb-10"
@@ -53,7 +51,9 @@ const Profile = () => {
                 resizeMode="contain"
               />
             </TouchableOpacity>
+          </View>
 
+          <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
               <Image
                 source={images.thumbnail}
