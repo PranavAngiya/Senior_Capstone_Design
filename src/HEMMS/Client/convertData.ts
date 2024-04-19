@@ -59,4 +59,4 @@ fs.writeFileSync(path.join(__dirname, 'constants', 'PowerData.ts'), powerTsConte
 // Write the TypeScript content to CostData.ts in the constants directory
 fs.writeFileSync(path.join(__dirname, 'constants', 'CostData.ts'), costTsContent);
 
-console.log('Conversion completed successfully.');
+console.log('Conversion completed successfully.\n');
