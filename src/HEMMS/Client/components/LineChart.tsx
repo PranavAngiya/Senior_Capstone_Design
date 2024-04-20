@@ -23,7 +23,11 @@ interface GraphData {
 
 export const LineChart = () => {
   const transition = useValue(1);
-  const [selectedDataType, setSelectedDataType] = useState<number>(0); // 0 for Power, 1 for Cost
+  const state = useValue({
+    current: 0,
+    next: 1,
+  });
+  const [selectedButton, setSelectedButton] = useState(0);
   const GRAPH_HEIGHT = 250;
   const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
@@ -49,31 +53,30 @@ export const LineChart = () => {
   };
 
   const transitionStart = (end: number) => {
-    setSelectedDataType(end);
+    state.current = {
+      current: end,
+      next: state.current.current,
+    };
 
     transition.current = 0;
     runTiming(transition, 1, {
       duration: 750,
       easing: Easing.inOut(Easing.cubic),
     });
+    setSelectedButton(end);
   };
 
   const graphData = [makeGraph(PowerData), makeGraph(CostData)];
   const path = useComputedValue(() => {
-    const start = graphData[selectedDataType].curve;
-    const end = graphData[selectedDataType === 0 ? 1 : 0].curve;
+    const start = graphData[state.current.current].curve;
+    const end = graphData[state.current.next].curve;
     const result = start.interpolate(end, transition.current);
     
     return result?.toSVGString() ?? "0";
-  }, [selectedDataType, transition]);
+  }, [state, transition]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>
-          {selectedDataType === 0 ? "Power vs Time" : "Cost vs Time"}
-        </Text>
-      </View>
       <Canvas
         style={{
           width: GRAPH_WIDTH,
@@ -97,29 +100,28 @@ export const LineChart = () => {
           strokeWidth={2}
         />
 
-        <Path style="stroke" path={path} strokeWidth={4} color="#ff5b5b" />
+        <Path
+          style="stroke"
+          path={path}
+          strokeWidth={4}
+          color="#ff5b5b"
+        />
       </Canvas>
 
       <View style={styles.buttonContainer}>
         <Pressable
           onPress={() => transitionStart(0)}
-          style={[
-            styles.buttonStyle,
-            selectedDataType === 0 && styles.selectedButtonStyle,
-          ]}
+          style={[styles.buttonStyle, selectedButton === 0 && styles.selectedButton]}
         >
-          <Text style={[styles.textStyle, selectedDataType === 0 && styles.selectedTextStyle]}>
+          <Text style={styles.textStyle}>
             Power
           </Text>
         </Pressable>
         <Pressable
           onPress={() => transitionStart(1)}
-          style={[
-            styles.buttonStyle,
-            selectedDataType === 1 && styles.selectedButtonStyle,
-          ]}
+          style={[styles.buttonStyle, selectedButton === 1 && styles.selectedButton]}
         >
-          <Text style={[styles.textStyle, selectedDataType === 1 && styles.selectedTextStyle]}>
+          <Text style={styles.textStyle}>
             Cost
           </Text>
         </Pressable>
@@ -130,22 +132,11 @@ export const LineChart = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
     marginBottom: 20,
-  },
-  titleContainer: {
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    paddingBottom: 5,
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -160,17 +151,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
   },
-  selectedButtonStyle: {
+  selectedButton: {
     backgroundColor: "#ff5b5b",
-    borderColor: "#ff5b5b",
   },
   textStyle: {
     color: "#333",
     fontSize: 16,
     fontWeight: "bold",
-  },
-  selectedTextStyle: {
-    color: "#fff",
   },
 });
 
