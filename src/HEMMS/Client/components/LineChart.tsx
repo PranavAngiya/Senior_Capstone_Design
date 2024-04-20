@@ -74,7 +74,7 @@ export const LineChart = () => {
           {selectedDataType === 0 ? "Power vs Time" : "Cost vs Time"}
         </Text>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+      <ScrollView horizontal>
         <View style={{ width: GRAPH_WIDTH }}>
           <Canvas
             style={{
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   selectedButtonStyle: {
     backgroundColor: "#ff5b5b",
-    borderColor: "#ff5b5b", 
+    borderColor: "#ff5b5b",
   },
   textStyle: {
     color: "#333",
