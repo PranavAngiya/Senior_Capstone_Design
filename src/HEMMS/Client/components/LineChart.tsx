@@ -31,6 +31,7 @@ export const LineChart = () => {
     next: 1,
   });
   const [selectedButton, setSelectedButton] = useState<number>(0);
+  const [selectedTime, setSelectedTime] = useState<string>("1D");
   const GRAPH_HEIGHT = 250;
   const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
@@ -130,6 +131,54 @@ export const LineChart = () => {
           color="#ff5b5b"
         />
       </Canvas>
+      
+      {/* Footer with time interval buttons */}
+      <View style={styles.footer}>
+        <Pressable
+          onPress={() => {
+            console.log("1 Day");
+            setSelectedTime("1D");
+          }}
+          style={[styles.timeButtonStyle, selectedTime === "1D" && styles.selectedTimeButtonStyle]}
+        >
+          <Text style={[styles.timeTextStyle, selectedTime === "1D" && styles.selectedTimeTextStyle]}>
+            1D
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            console.log("1 Week");
+            setSelectedTime("1W");
+          }}
+          style={[styles.timeButtonStyle, selectedTime === "1W" && styles.selectedTimeButtonStyle]}
+        >
+          <Text style={[styles.timeTextStyle, selectedTime === "1W" && styles.selectedTimeTextStyle]}>
+            1W
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            console.log("1 Month");
+            setSelectedTime("1M");
+          }}
+          style={[styles.timeButtonStyle, selectedTime === "1M" && styles.selectedTimeButtonStyle]}
+        >
+          <Text style={[styles.timeTextStyle, selectedTime === "1M" && styles.selectedTimeTextStyle]}>
+            1M
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            console.log("1 Year");
+            setSelectedTime("1Y");
+          }}
+          style={[styles.timeButtonStyle, selectedTime === "1Y" && styles.selectedTimeButtonStyle]}
+        >
+          <Text style={[styles.timeTextStyle, selectedTime === "1Y" && styles.selectedTimeTextStyle]}>
+            1Y
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -145,6 +194,10 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     marginBottom: 10,
+  },
+  footer: {
+    flexDirection: "row",
+    marginTop: 10,
   },
   buttonStyle: {
     marginRight: 20,
@@ -164,6 +217,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   selectedTextStyle: {
+    color: "white",
+  },
+  timeButtonStyle: {
+    marginRight: 10,
+    backgroundColor: "white",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  selectedTimeButtonStyle: {
+    backgroundColor: "#FF5722",
+  },
+  timeTextStyle: {
+    color: "#333",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  selectedTimeTextStyle: {
     color: "white",
   },
 });
