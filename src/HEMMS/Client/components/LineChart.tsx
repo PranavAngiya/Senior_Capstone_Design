@@ -23,9 +23,9 @@ interface GraphData {
 
 export const LineChart = () => {
   const transition = useValue(1);
-  const [selectedDataType, setSelectedDataType] = useState<number>(0);
+  const [selectedDataType, setSelectedDataType] = useState<number>(0); // 0 for Power, 1 for Cost
   const GRAPH_HEIGHT = 250;
-  const GRAPH_WIDTH = 1000;
+  const GRAPH_WIDTH = 1000; // Initial width of the plotting area (adjust as needed)
   const makeGraph = (data: DataPoint[]): GraphData => {
     const max = Math.max(...data.map((val) => val.value));
     const min = Math.min(...data.map((val) => val.value));
@@ -99,12 +99,7 @@ export const LineChart = () => {
               strokeWidth={2}
             />
 
-            <Path
-              style="stroke"
-              path={path}
-              strokeWidth={4}
-              color="#ff5b5b"
-            />
+            <Path style="stroke" path={path} strokeWidth={4} color="#ff5b5b" />
           </Canvas>
         </View>
       </ScrollView>
@@ -171,7 +166,7 @@ const styles = StyleSheet.create({
   },
   selectedButtonStyle: {
     backgroundColor: "#ff5b5b",
-    borderColor: "#ff5b5b",
+    borderColor: "#ff5b5b", 
   },
   textStyle: {
     color: "#333",
