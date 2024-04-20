@@ -13,15 +13,12 @@ const Profile = () => {
   const logout = async () => {
     router.replace("../sign-in");
   };
-
   const [refreshing, setRefreshing] = useState(false);
-
   const onRefresh = async () => {
     setRefreshing(true);
     // re call profile -> if any new data appeared
     setRefreshing(false);
   };
-
   const [form, setForm] = useState({
     username: '',
     newPassword: '',

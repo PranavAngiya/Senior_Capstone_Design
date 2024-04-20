@@ -5,7 +5,6 @@ import { icons, images } from '../../constants';
 
 const Devices = () => {
   const [refreshing, setRefreshing] = useState(false)
-
   const onRefresh = async () => {
     setRefreshing(true)
     // re call devices -> if any new data appeared

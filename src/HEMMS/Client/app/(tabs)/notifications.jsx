@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Notifications = () => {
   const [refreshing, setRefreshing] = useState(false)
-
   const onRefresh = async () => {
     setRefreshing(true)
     // re call notifications -> if any new data appeared
