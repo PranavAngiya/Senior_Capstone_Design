@@ -80,6 +80,27 @@ export const LineChart = () => {
 
   return (
     <View style={styles.container}>
+      {/* Header with buttons */}
+      <View style={styles.header}>
+        <Pressable
+          onPress={() => transitionStart(0)}
+          style={[styles.buttonStyle, selectedButton === 0 && styles.selectedButton]}
+        >
+          <Text style={[styles.textStyle, selectedButton === 0 && styles.selectedTextStyle]}>
+            Power
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => transitionStart(1)}
+          style={[styles.buttonStyle, selectedButton === 1 && styles.selectedButton]}
+        >
+          <Text style={[styles.textStyle, selectedButton === 1 && styles.selectedTextStyle]}>
+            Cost
+          </Text>
+        </Pressable>
+      </View>
+      
+      {/* Graph */}
       <Canvas
         style={{
           width: GRAPH_WIDTH,
@@ -102,7 +123,6 @@ export const LineChart = () => {
           style="stroke"
           strokeWidth={2}
         />
-
         <Path
           style="stroke"
           path={path}
@@ -110,25 +130,6 @@ export const LineChart = () => {
           color="#ff5b5b"
         />
       </Canvas>
-
-      <View style={styles.buttonContainer}>
-        <Pressable
-          onPress={() => transitionStart(0)}
-          style={[styles.buttonStyle, selectedButton === 0 && styles.selectedButton]}
-        >
-          <Text style={styles.textStyle}>
-            Power
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => transitionStart(1)}
-          style={[styles.buttonStyle, selectedButton === 1 && styles.selectedButton]}
-        >
-          <Text style={styles.textStyle}>
-            Cost
-          </Text>
-        </Pressable>
-      </View>
     </View>
   );
 };
@@ -141,9 +142,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
-  buttonContainer: {
+  header: {
     flexDirection: "row",
-    marginTop: 10,
+    marginBottom: 10,
   },
   buttonStyle: {
     marginRight: 20,
