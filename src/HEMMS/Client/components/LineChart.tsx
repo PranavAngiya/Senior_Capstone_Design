@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { curveBasis, line, scaleLinear, scaleTime } from "d3";
 import { Easing, View, Pressable, Text, StyleSheet } from "react-native";
 import {
@@ -23,10 +23,7 @@ interface GraphData {
 
 export const LineChart = () => {
   const transition = useValue(1);
-  const state = useValue({
-    current: 0,
-    next: 1,
-  });
+  const [selectedDataType, setSelectedDataType] = useState<number>(0); // 0 for Power, 1 for Cost
   const GRAPH_HEIGHT = 250;
   const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
@@ -52,10 +49,7 @@ export const LineChart = () => {
   };
 
   const transitionStart = (end: number) => {
-    state.current = {
-      current: end,
-      next: state.current.current,
-    };
+    setSelectedDataType(end);
 
     transition.current = 0;
     runTiming(transition, 1, {
@@ -66,19 +60,26 @@ export const LineChart = () => {
 
   const graphData = [makeGraph(PowerData), makeGraph(CostData)];
   const path = useComputedValue(() => {
-    const start = graphData[state.current.current].curve;
-    const end = graphData[state.current.next].curve;
+    const start = graphData[selectedDataType].curve;
+    const end = graphData[selectedDataType === 0 ? 1 : 0].curve;
     const result = start.interpolate(end, transition.current);
     
     return result?.toSVGString() ?? "0";
-  }, [state, transition]);
+  }, [selectedDataType, transition]);
 
   return (
     <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>
+          {selectedDataType === 0 ? "Power vs Time" : "Cost vs Time"}
+        </Text>
+      </View>
       <Canvas
         style={{
           width: GRAPH_WIDTH,
           height: GRAPH_HEIGHT,
+          borderWidth: 1,
+          borderColor: "#ccc",
         }}
       >
         <Line
@@ -96,23 +97,29 @@ export const LineChart = () => {
           strokeWidth={2}
         />
 
-        <Path style="stroke" path={path} strokeWidth={4} color="#6231ff" />
+        <Path style="stroke" path={path} strokeWidth={4} color="#ff5b5b" />
       </Canvas>
 
       <View style={styles.buttonContainer}>
         <Pressable
           onPress={() => transitionStart(0)}
-          style={styles.buttonStyle}
+          style={[
+            styles.buttonStyle,
+            selectedDataType === 0 && styles.selectedButtonStyle,
+          ]}
         >
-          <Text style={styles.textStyle}>
+          <Text style={[styles.textStyle, selectedDataType === 0 && styles.selectedTextStyle]}>
             Power
           </Text>
         </Pressable>
         <Pressable
           onPress={() => transitionStart(1)}
-          style={styles.buttonStyle}
+          style={[
+            styles.buttonStyle,
+            selectedDataType === 1 && styles.selectedButtonStyle,
+          ]}
         >
-          <Text style={styles.textStyle}>
+          <Text style={[styles.textStyle, selectedDataType === 1 && styles.selectedTextStyle]}>
             Cost
           </Text>
         </Pressable>
@@ -123,11 +130,22 @@ export const LineChart = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
     padding: 10,
     marginBottom: 20,
+  },
+  titleContainer: {
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingBottom: 5,
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -135,14 +153,24 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     marginRight: 20,
-    backgroundColor: "#6231ff",
-    paddingVertical: 5,
+    backgroundColor: "#fff",
+    paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  selectedButtonStyle: {
+    backgroundColor: "#ff5b5b",
+    borderColor: "#ff5b5b",
   },
   textStyle: {
-    color: "white",
+    color: "#333",
     fontSize: 16,
+    fontWeight: "bold",
+  },
+  selectedTextStyle: {
+    color: "#fff",
   },
 });
 
