@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { curveBasis, line, scaleLinear, scaleTime } from "d3";
-import { Easing, View, Pressable, Text, StyleSheet, ScrollView } from "react-native";
+import { Easing, View, Pressable, Text, StyleSheet } from "react-native";
 import {
   Canvas,
   Line,
@@ -25,7 +25,7 @@ export const LineChart = () => {
   const transition = useValue(1);
   const [selectedDataType, setSelectedDataType] = useState<number>(0); // 0 for Power, 1 for Cost
   const GRAPH_HEIGHT = 250;
-  const GRAPH_WIDTH = 1000; // Initial width of the plotting area (adjust as needed)
+  const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
     const max = Math.max(...data.map((val) => val.value));
     const min = Math.min(...data.map((val) => val.value));
@@ -74,35 +74,31 @@ export const LineChart = () => {
           {selectedDataType === 0 ? "Power vs Time" : "Cost vs Time"}
         </Text>
       </View>
-      <ScrollView horizontal>
-        <View style={{ width: GRAPH_WIDTH }}>
-          <Canvas
-            style={{
-              width: GRAPH_WIDTH,
-              height: GRAPH_HEIGHT,
-              borderWidth: 1,
-              borderColor: "#ccc",
-            }}
-          >
-            <Line
-              p1={vec(20, GRAPH_HEIGHT - 20)}
-              p2={vec(GRAPH_WIDTH - 20, GRAPH_HEIGHT - 20)}
-              color="black"
-              style="stroke"
-              strokeWidth={2}
-            />
-            <Line
-              p1={vec(20, GRAPH_HEIGHT - 20)}
-              p2={vec(20, 20)}
-              color="black"
-              style="stroke"
-              strokeWidth={2}
-            />
+      <Canvas
+        style={{
+          width: GRAPH_WIDTH,
+          height: GRAPH_HEIGHT,
+          borderWidth: 1,
+          borderColor: "#ccc",
+        }}
+      >
+        <Line
+          p1={vec(20, GRAPH_HEIGHT - 20)}
+          p2={vec(GRAPH_WIDTH - 20, GRAPH_HEIGHT - 20)}
+          color="black"
+          style="stroke"
+          strokeWidth={2}
+        />
+        <Line
+          p1={vec(20, GRAPH_HEIGHT - 20)}
+          p2={vec(20, 20)}
+          color="black"
+          style="stroke"
+          strokeWidth={2}
+        />
 
-            <Path style="stroke" path={path} strokeWidth={4} color="#ff5b5b" />
-          </Canvas>
-        </View>
-      </ScrollView>
+        <Path style="stroke" path={path} strokeWidth={4} color="#ff5b5b" />
+      </Canvas>
 
       <View style={styles.buttonContainer}>
         <Pressable
