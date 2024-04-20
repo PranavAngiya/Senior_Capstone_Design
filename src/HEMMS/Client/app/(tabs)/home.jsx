@@ -34,12 +34,6 @@ const Home = () => {
               </View>
             </View>
             <View className="w-full flex-1 pt-5 pb-8 justify-center items-center px-4">
-              <Image
-                source={images.empty}
-                className="w-[270px] h-[215px]"
-                resizeMode='contain'
-              />
-              
               <Text className="text-xl text-center font-psemibold text-white mt-2">
                 Real-time updates on your home energy usage
               </Text>

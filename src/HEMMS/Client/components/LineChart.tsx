@@ -13,7 +13,7 @@ import {
   vec,
 } from "@shopify/react-native-skia";
 
-import { animatedData, DataPoint, originalData } from "../constants/Data";
+import { CostData, DataPoint, PowerData } from "../constants/Data";
 
 interface GraphData {
   min: number;
@@ -27,17 +27,17 @@ export const LineChart = () => {
     current: 0,
     next: 1,
   });
-  const GRAPH_HEIGHT = 400;
-  const GRAPH_WIDTH = 360;
+  const GRAPH_HEIGHT = 250;
+  const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
     const max = Math.max(...data.map((val) => val.value));
     const min = Math.min(...data.map((val) => val.value));
     const y = scaleLinear()
       .domain([0, max])
-      .range([GRAPH_HEIGHT, 35]);
+      .range([GRAPH_HEIGHT - 20, 20]);
     const x = scaleTime()
       .domain([new Date(2000, 1, 1), new Date(2000, 1, 15)])
-      .range([10, GRAPH_WIDTH - 10]);
+      .range([20, GRAPH_WIDTH - 20]);
     const curvedLine = line<DataPoint>()
       .x((d) => x(new Date(d.date)))
       .y((d) => y(d.value))
@@ -64,7 +64,7 @@ export const LineChart = () => {
     });
   };
 
-  const graphData = [makeGraph(originalData), makeGraph(animatedData)];
+  const graphData = [makeGraph(PowerData), makeGraph(CostData)];
   const path = useComputedValue(() => {
     const start = graphData[state.current.current].curve;
     const end = graphData[state.current.next].curve;
@@ -82,25 +82,18 @@ export const LineChart = () => {
         }}
       >
         <Line
-          p1={vec(10, 130)}
-          p2={vec(400, 130)}
-          color="lightgrey"
+          p1={vec(20, GRAPH_HEIGHT - 20)}
+          p2={vec(GRAPH_WIDTH - 20, GRAPH_HEIGHT - 20)}
+          color="black"
           style="stroke"
-          strokeWidth={1}
+          strokeWidth={2}
         />
         <Line
-          p1={vec(10, 250)}
-          p2={vec(400, 250)}
-          color="lightgrey"
+          p1={vec(20, GRAPH_HEIGHT - 20)}
+          p2={vec(20, 20)}
+          color="black"
           style="stroke"
-          strokeWidth={1}
-        />
-        <Line
-          p1={vec(10, 370)}
-          p2={vec(400, 370)}
-          color="lightgrey"
-          style="stroke"
-          strokeWidth={1}
+          strokeWidth={2}
         />
 
         <Path style="stroke" path={path} strokeWidth={4} color="#6231ff" />
@@ -132,10 +125,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     backgroundColor: "white",
-    flex: 1,
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: "row",
+    marginTop: 10,
   },
   buttonStyle: {
     marginRight: 20,
@@ -146,6 +142,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: "white",
-    fontSize: 20,
+    fontSize: 16,
   },
 });
+
+export default LineChart;
