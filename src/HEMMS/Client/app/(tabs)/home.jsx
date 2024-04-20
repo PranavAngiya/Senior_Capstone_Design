@@ -34,7 +34,7 @@ const Home = () => {
               </View>
             </View>
             <View className="w-full flex-1 pt-5 pb-8 justify-center items-center px-4">
-              <Text className="text-xl text-center font-psemibold text-white mt-2">
+              <Text className="text-xl text-center font-psemibold text-white mt-2 mb-6">
                 Real-time updates on your home energy usage
               </Text>
 
