@@ -22,12 +22,15 @@ interface GraphData {
 }
 
 export const LineChart = () => {
-  const transition = useValue(1);
-  const state = useValue({
+  const transition = useValue<number>(1);
+  const state = useValue<{
+    current: number;
+    next: number;
+  }>({
     current: 0,
     next: 1,
   });
-  const [selectedButton, setSelectedButton] = useState(0);
+  const [selectedButton, setSelectedButton] = useState<number>(0);
   const GRAPH_HEIGHT = 250;
   const GRAPH_WIDTH = 320;
   const makeGraph = (data: DataPoint[]): GraphData => {
@@ -68,10 +71,10 @@ export const LineChart = () => {
 
   const graphData = [makeGraph(PowerData), makeGraph(CostData)];
   const path = useComputedValue(() => {
-    const start = graphData[state.current.current].curve;
-    const end = graphData[state.current.next].curve;
+    const start = graphData[state.current.current]?.curve;
+    const end = graphData[state.current.next]?.curve;
+    if (!start || !end) return "0";
     const result = start.interpolate(end, transition.current);
-    
     return result?.toSVGString() ?? "0";
   }, [state, transition]);
 
@@ -144,20 +147,23 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     marginRight: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "black",
   },
   selectedButton: {
-    backgroundColor: "#ff5b5b",
+    backgroundColor: "#FF5722",
   },
   textStyle: {
     color: "#333",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  selectedTextStyle: {
+    color: "white",
   },
 });
 
