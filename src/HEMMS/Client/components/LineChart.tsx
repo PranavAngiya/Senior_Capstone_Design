@@ -81,7 +81,6 @@ export const LineChart = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header with buttons */}
       <View style={styles.header}>
         <Pressable
           onPress={() => transitionStart(0)}
@@ -101,7 +100,6 @@ export const LineChart = () => {
         </Pressable>
       </View>
       
-      {/* Graph */}
       <Canvas
         style={{
           width: GRAPH_WIDTH,
@@ -132,7 +130,6 @@ export const LineChart = () => {
         />
       </Canvas>
       
-      {/* Footer with time interval buttons */}
       <View style={styles.footer}>
         <Pressable
           onPress={() => {
