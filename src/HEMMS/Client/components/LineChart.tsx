@@ -132,10 +132,7 @@ export const LineChart = () => {
       
       <View style={styles.footer}>
         <Pressable
-          onPress={() => {
-            console.log("1 Day");
-            setSelectedTime("1D");
-          }}
+          onPress={() => {setSelectedTime("1D");}}
           style={[styles.timeButtonStyle, selectedTime === "1D" && styles.selectedTimeButtonStyle]}
         >
           <Text style={[styles.timeTextStyle, selectedTime === "1D" && styles.selectedTimeTextStyle]}>
@@ -143,10 +140,7 @@ export const LineChart = () => {
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => {
-            console.log("1 Week");
-            setSelectedTime("1W");
-          }}
+          onPress={() => {setSelectedTime("1W");}}
           style={[styles.timeButtonStyle, selectedTime === "1W" && styles.selectedTimeButtonStyle]}
         >
           <Text style={[styles.timeTextStyle, selectedTime === "1W" && styles.selectedTimeTextStyle]}>
@@ -154,10 +148,7 @@ export const LineChart = () => {
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => {
-            console.log("1 Month");
-            setSelectedTime("1M");
-          }}
+          onPress={() => {setSelectedTime("1M");}}
           style={[styles.timeButtonStyle, selectedTime === "1M" && styles.selectedTimeButtonStyle]}
         >
           <Text style={[styles.timeTextStyle, selectedTime === "1M" && styles.selectedTimeTextStyle]}>
@@ -165,10 +156,7 @@ export const LineChart = () => {
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => {
-            console.log("1 Year");
-            setSelectedTime("1Y");
-          }}
+          onPress={() => {setSelectedTime("1Y");}}
           style={[styles.timeButtonStyle, selectedTime === "1Y" && styles.selectedTimeButtonStyle]}
         >
           <Text style={[styles.timeTextStyle, selectedTime === "1Y" && styles.selectedTimeTextStyle]}>
