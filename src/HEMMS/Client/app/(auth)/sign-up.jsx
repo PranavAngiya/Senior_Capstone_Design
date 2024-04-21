@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, Image } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, ScrollView, Image, FlatList, ActivityIndicator} from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, Link } from "expo-router";
 
@@ -8,6 +8,9 @@ import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import usStates from '../../constants/usStates';
 
+const port = 5050
+const url = "http://192.168.1.154:" + port
+
 const SignUp = () => {
   const [form, setForm] = useState({
     username: '',
@@ -15,6 +18,28 @@ const SignUp = () => {
     confirmPassword: '',
     selectedState: ''
   });
+
+  const [rateData, setRateData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchRate();
+  }, []);
+
+  const fetchRate = async () => {
+    try {
+      const response = await fetch(`${url}/rates?state=New Jersey`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setRateData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error:', error);
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -25,6 +50,18 @@ const SignUp = () => {
             resizeMode="contain"
             className="w-[115px] h-[35px]"
           />
+
+          {loading ? (
+            <ActivityIndicator size="large" color="#ffffff" />
+          ) : rateData ? (
+            <Text style={{ color: 'white', fontSize: 16 }}>
+              Rate: {rateData}
+            </Text>
+          ) : (
+            <Text style={{ color: 'white', fontSize: 16 }}>
+              No rate found for the state
+            </Text>
+          )}
 
           <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
             Sign up to HEMMS
