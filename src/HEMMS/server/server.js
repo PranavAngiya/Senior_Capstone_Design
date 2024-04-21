@@ -6,6 +6,7 @@ const port = 5050
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -20,7 +21,15 @@ mongoose.connection.on('error', (err) => {
 const rateSchema = new mongoose.Schema({
     State: String,
     Rate: Number
-  });
+});
+
+const userSchema = new mongoose.Schema({
+    username: {type : String, unique: true},
+    password: String,
+    selectedState: String
+})
+
+const User = mongoose.model('User', userSchema, "Users");
 
 const Rate = mongoose.model('Rate', rateSchema, "Rates");
 
@@ -49,5 +58,22 @@ app.get('/rates', async (req, res) => {
     console.log("outputrate:", outputrate);
     res.status(200).json(outputrate);
 });
+
+app.post('/signup', async (req, res) => {
+    // recieve username, password, selectedState
+    const { username, password, selectedState } = req.body;
+
+    // Check to see if username already exists inside the database
+    const user = await User.findOne({ username: username });
+
+    if (user) {
+        res.status(400).json({ message: 'Username already exists' });
+    }
+    else{
+        const newUser = new User({ username: username, password: password, selectedState: selectedState });
+        await newUser.save();
+        res.status(200).json({ message: 'User created successfully' });
+    }
+})
 
 app.listen(port, () => console.log('Server running on port ' + port))

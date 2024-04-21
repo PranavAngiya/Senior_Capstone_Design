@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, FlatList, ActivityIndicator} from 'react-native';
+import { View, Text, ScrollView, Image, FlatList, ActivityIndicator, Alert} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, Link } from "expo-router";
@@ -19,27 +19,39 @@ const SignUp = () => {
     selectedState: ''
   });
 
-  const [rateData, setRateData] = useState(null);
-  const [loading, setLoading] = useState(true);
+const handleSignup = () => {
+  if (form.password !== form.confirmPassword) {
+    Alert.alert('Error', 'Passwords do not match');
+    return;
+  }
 
-  useEffect(() => {
-    fetchRate();
-  }, []);
-
-  const fetchRate = async () => {
-    try {
-      const response = await fetch(`${url}/rates?state=New Jersey`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      setRateData(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error:', error);
-      setLoading(false);
+  fetch(url + '/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: form.username,
+      password: form.password,
+      selectedState: form.selectedState
+    }),
+  })
+  .then(response => {
+    if (response.ok) {
+      Alert.alert('Success', 'Account created successfully');
+      router.push('sign-in');
+    } else if (response.status === 400) {
+      Alert.alert('Error', 'Username already exists');
     }
-  };
+     else {
+      Alert.alert('Error', 'Failed to create account');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Alert.alert("Network Error", "Failed to connect to the server");
+  });
+};
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -50,18 +62,6 @@ const SignUp = () => {
             resizeMode="contain"
             className="w-[115px] h-[35px]"
           />
-
-          {loading ? (
-            <ActivityIndicator size="large" color="#ffffff" />
-          ) : rateData ? (
-            <Text style={{ color: 'white', fontSize: 16 }}>
-              Rate: {rateData}
-            </Text>
-          ) : (
-            <Text style={{ color: 'white', fontSize: 16 }}>
-              No rate found for the state
-            </Text>
-          )}
 
           <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
             Sign up to HEMMS
@@ -99,7 +99,7 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            handlePress={() => router.push('/home')}
+            handlePress={handleSignup}
             containerStyles="mt-7"
           />
 
