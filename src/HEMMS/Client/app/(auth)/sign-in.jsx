@@ -9,8 +9,15 @@ import CustomButton from '../../components/CustomButton';
 import { Link } from 'expo-router';
 import { url } from '../../connection';
 
+// Pranav's connection.js:
+
 // const port = 5050
-// const url = "http://192.168.1.154:" + port
+// export const url = "http://192.168.1.154:" + port
+
+// Aditya's connection.js:
+
+// const port = 5050
+// export const url = "http://192.168.1.9:" + port
 
 const SignIn = () => {
   const [form, setform] = useState({

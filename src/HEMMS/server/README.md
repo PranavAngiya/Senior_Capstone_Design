@@ -9,4 +9,5 @@ To run:
     B. Cors - npm install cors
     C. Mongodb - npm install mongodb
     D. Mongoose - npm install mongoose
+    E. Nodemon - npm install nodemon
 4. Begin Nodemon Server - npm run dev
