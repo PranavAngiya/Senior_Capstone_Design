@@ -11,7 +11,15 @@ To run:
 
 6. Split terminal
 
+Run ipconfig on terminal and write down IPv4 Address
+Go to connection.js in client code and replace the url ip address with yours
+
 7. "cd ../Client/"
 8. "npm install ts-node"
 9. "npm install"
 10. "npm start"
+
+
+To Login: 
+Username: "HEMMS"
+Password: "demo"

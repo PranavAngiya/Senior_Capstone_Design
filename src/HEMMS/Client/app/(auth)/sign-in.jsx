@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from "expo-router";
@@ -7,12 +7,34 @@ import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link } from 'expo-router';
+import { url } from '../../connection';
+
+// const port = 5050
+// const url = "http://192.168.1.154:" + port
 
 const SignIn = () => {
   const [form, setform] = useState({
     username: '',
     password: ''
   })
+
+  const handleLogin = () => {
+    fetchurl = url +'/signin?username='+ form.username +'&password=' + form.password;
+    fetch(fetchurl)
+    .then(response => {
+      if (response.ok) {
+        router.push('/home');
+      } else if (response.status === 400) {
+        Alert.alert('Error', 'Invalid username or password');
+      }
+      else {
+        Alert.alert('Error', 'Failed to Sign in');
+      }
+    })
+    .catch(error => {
+      Alert.alert("Network Error", "Failed to connect to the server");
+    });
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -45,7 +67,8 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            handlePress={() => router.push('/home')}
+            handlePress={handleLogin}
+            // handlePress={() => router.push('/home')}
             containerStyles="mt-7"
           />
 
