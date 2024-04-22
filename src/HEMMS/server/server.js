@@ -18,46 +18,21 @@ mongoose.connection.on('error', (err) => {
     console.log("Error connecting to MongoDB", err);
 })
 
-const rateSchema = new mongoose.Schema({
-    State: String,
-    Rate: Number
-});
-
 const userSchema = new mongoose.Schema({
     username: {type : String, unique: true},
     password: String,
     selectedState: String
 })
 
+const dataSchema = new mongoose.Schema({
+    date: String,
+    time: String,
+    power: Number,
+    cost: Number,
+    currentState: String
+})
+
 const User = mongoose.model('User', userSchema, "Users");
-
-const Rate = mongoose.model('Rate', rateSchema, "Rates");
-
-// Call the function with the desired state
-async function getRateByState(state) {
-    try {
-        const rate = await Rate.find({ State: state });
-        if (rate.length > 0) {
-            console.log(`Rate for ${state}: ${rate[0].Rate}`);
-            return rate[0].Rate;
-        } else {
-            console.log(`Rate for ${state} not found`);
-            return null;
-        }
-    } catch (err) {
-        console.error("Error finding rate:", err);
-    }
-}
-
-app.get('/rates', async (req, res) => {
-    const rates = mongoose.connection.collection('Rates');
-    const requestedState = req.query.state;
-
-    // Return state and rate
-    const outputrate = await getRateByState(requestedState);
-    console.log("outputrate:", outputrate);
-    res.status(200).json(outputrate);
-});
 
 app.post('/signup', async (req, res) => {
     // recieve username, password, selectedState
@@ -74,6 +49,28 @@ app.post('/signup', async (req, res) => {
         await newUser.save();
         res.status(200).json({ message: 'User created successfully' });
     }
+})
+
+app.get('/signin', async (req, res) => {
+    // recieve username, password
+    const { username, password } = req.query;
+
+    // Check to see if username already exists inside the database
+    const user = await User.findOne({ username: username });
+    if (!user) {
+        res.status(400).json({ message: 'Username does not exist' });
+    }
+
+    if (user.password !== password) {
+        res.status(400).json({ message: 'Incorrect password' });
+    }
+
+    res.status(200).json({ message: 'Sign in successful' });
+})
+
+app.get('/getalldata', async (req, res) => {
+    const data = await Data.find();
+    res.status(200).json({ data: data });  
 })
 
 app.listen(port, () => console.log('Server running on port ' + port))

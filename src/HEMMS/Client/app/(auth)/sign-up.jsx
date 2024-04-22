@@ -7,9 +7,10 @@ import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import usStates from '../../constants/usStates';
+import { url } from '../../connection';
 
-const port = 5050
-const url = "http://192.168.1.154:" + port
+// const port = 5050
+// const url = "http://192.168.1.154:" + port
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -19,39 +20,38 @@ const SignUp = () => {
     selectedState: ''
   });
 
-const handleSignup = () => {
-  if (form.password !== form.confirmPassword) {
-    Alert.alert('Error', 'Passwords do not match');
-    return;
-  }
+  const handleSignup = () => {
+    if (form.password !== form.confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
 
-  fetch(url + '/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      username: form.username,
-      password: form.password,
-      selectedState: form.selectedState
-    }),
-  })
-  .then(response => {
-    if (response.ok) {
-      Alert.alert('Success', 'Account created successfully');
-      router.push('sign-in');
-    } else if (response.status === 400) {
-      Alert.alert('Error', 'Username already exists');
-    }
-     else {
-      Alert.alert('Error', 'Failed to create account');
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    Alert.alert("Network Error", "Failed to connect to the server");
-  });
-};
+    fetch(url + '/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: form.username,
+        password: form.password,
+        selectedState: form.selectedState
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        Alert.alert('Success', 'Account created successfully');
+        router.push('sign-in');
+      } else if (response.status === 400) {
+        Alert.alert('Error', 'Username already exists');
+      }
+      else {
+        Alert.alert('Error', 'Failed to create account');
+      }
+    })
+    .catch(error => {
+      Alert.alert("Network Error", "Failed to connect to the server");
+    });
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
