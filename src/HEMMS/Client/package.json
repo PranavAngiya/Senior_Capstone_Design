@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "ts-node convertData.ts && npx expo start",
+    "start": "npx expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -32,6 +32,7 @@
     "react-native": "0.73.6",
     "react-native-animatable": "^1.4.0",
     "react-native-appwrite": "^0.2.2",
+    "react-native-bars": "^2.4.3",
     "react-native-chart-kit": "^6.12.0",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-element-dropdown": "^2.10.4",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
+    "@types/d3": "^7.4.3",
     "@types/d3-scale": "^4.0.8",
     "@types/d3-shape": "^3.1.6",
     "@types/node": "^20.12.7",

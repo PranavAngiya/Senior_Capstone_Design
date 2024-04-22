@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
-
+import { LineChart } from '../../components/LineChart';
 import { images } from '../../constants';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-
   const onRefresh = async () => {
     setRefreshing(true);
     // re call graph -> if any new data appeared
@@ -35,18 +34,11 @@ const Home = () => {
               </View>
             </View>
             <View className="w-full flex-1 pt-5 pb-8 justify-center items-center px-4">
-              <Image
-                source={images.empty}
-                className="w-[270px] h-[215px]"
-                resizeMode='contain'
-              />
-              
-              <Text className="text-xl text-center font-psemibold text-white mt-2">
+              <Text className="text-xl text-center font-psemibold text-white mt-2 mb-6">
                 Real-time updates on your home energy usage
               </Text>
-              <Text className="font-pmedium text-sm text-gray-100">
-                No Graphs Found
-              </Text>
+
+              <LineChart/>
             </View>
           </View>
         )}
