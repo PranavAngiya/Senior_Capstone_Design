@@ -12,13 +12,10 @@ type Props = {
 const AnimatedText = ({selectedValue, font}: Props) => {
   const {width} = useWindowDimensions();
   const MARGIN_VERTICAL = 80;
-
   const animatedText = useDerivedValue(() => {
     return `$${Math.round(selectedValue.value)}`;
   });
-
   const fontSize = font?.measureText('0');
-
   const textX = useDerivedValue(() => {
     const _fontSize = font?.measureText(animatedText.value);
     return width / 2 - _fontSize!.width / 2;

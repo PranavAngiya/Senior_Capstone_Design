@@ -48,20 +48,18 @@ export const LineChart = () => {
       .y((d) => y(d.value))
       .curve(curveBasis)(data);
     const skPath = Skia.Path.MakeFromSVGString(curvedLine!);
-
+    
     return {
       max,
       min,
       curve: skPath!,
     };
   };
-
   const transitionStart = (end: number) => {
     state.current = {
       current: end,
       next: state.current.current,
     };
-
     transition.current = 0;
     runTiming(transition, 1, {
       duration: 750,
@@ -69,7 +67,6 @@ export const LineChart = () => {
     });
     setSelectedButton(end);
   };
-
   const graphData = [makeGraph(PowerData), makeGraph(CostData)];
   const path = useComputedValue(() => {
     const start = graphData[state.current.current]?.curve;
@@ -78,7 +75,7 @@ export const LineChart = () => {
     const result = start.interpolate(end, transition.current);
     return result?.toSVGString() ?? "0";
   }, [state, transition]);
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
