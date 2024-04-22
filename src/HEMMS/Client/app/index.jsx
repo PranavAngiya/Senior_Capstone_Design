@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import { Image, ScrollView, Text, View } from "react-native";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import "react-native-gesture-handler";
 
 import { images } from '../constants';
 import CustomButton from '../components/CustomButton';
