@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
+
 import { LineChart } from '../../components/LineChart';
 import { images } from '../../constants';
 
