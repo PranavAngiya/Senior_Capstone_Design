@@ -15,3 +15,8 @@ To run:
 8. "npm install ts-node"
 9. "npm install"
 10. "npm start"
+
+
+To Login: 
+Username: "HEMMS"
+Password: "demo"

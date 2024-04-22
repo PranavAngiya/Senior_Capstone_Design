@@ -67,7 +67,8 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            handlePress={handleLogin}
+            // handlePress={handleLogin}
+            handlePress={() => router.push('/home')}
             containerStyles="mt-7"
           />
 
