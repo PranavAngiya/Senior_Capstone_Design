@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema({
 })
 
 const dataSchema = new mongoose.Schema({
-    date: String,
-    time: String,
+    datetime: Date,
+    day: String,
     power: Number,
     cost: Number,
     currentState: String
