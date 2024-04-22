@@ -172,43 +172,41 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 20,
+    borderRadius: 20,
+    padding: 20,
   },
   header: {
     flexDirection: "row",
-    marginBottom: 10,
+    marginBottom: 40,
   },
   footer: {
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: 40,
   },
   buttonStyle: {
     marginRight: 20,
     backgroundColor: "white",
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: "black",
   },
   selectedButton: {
     backgroundColor: "#FF5722",
   },
   textStyle: {
-    color: "#333",
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "bold",
   },
   selectedTextStyle: {
     color: "white",
   },
   timeButtonStyle: {
-    marginRight: 10,
+    marginRight: 20,
     backgroundColor: "white",
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "black",
@@ -217,8 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF5722",
   },
   timeTextStyle: {
-    color: "#333",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "bold",
   },
   selectedTimeTextStyle: {
