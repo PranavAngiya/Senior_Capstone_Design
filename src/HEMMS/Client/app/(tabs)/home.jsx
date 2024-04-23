@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Image, RefreshControl, Dimensions } from 'react-native';
 
-import { LineChart } from '../../components/LineChart';
 import { images } from '../../constants';
+import LineChart from '../../components/LineChart';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -38,9 +38,9 @@ const Home = () => {
               <Text className="text-xl text-center font-psemibold text-white mt-2 mb-6">
                 Real-time updates on your home energy usage
               </Text>
-
-              <LineChart/>
             </View>
+
+            <LineChart/>
           </View>
         )}
 

@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "6626e0d193d05b1263b06e0b",
+    "datetime": "2024-04-22T00:00:00.000Z",
+    "day": "Monday",
+    "power": 110,
+    "cost": 22,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e0c",
+    "datetime": "2024-04-22T00:05:00.000Z",
+    "day": "Monday",
+    "power": 120,
+    "cost": 24,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e0d",
+    "datetime": "2024-04-22T00:10:00.000Z",
+    "day": "Monday",
+    "power": 130,
+    "cost": 26,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e0e",
+    "datetime": "2024-04-22T00:15:00.000Z",
+    "day": "Monday",
+    "power": 140,
+    "cost": 28,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e0f",
+    "datetime": "2024-04-22T00:20:00.000Z",
+    "day": "Monday",
+    "power": 150,
+    "cost": 30,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e10",
+    "datetime": "2024-04-22T00:25:00.000Z",
+    "day": "Monday",
+    "power": 100,
+    "cost": 20,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e11",
+    "datetime": "2024-04-22T00:30:00.000Z",
+    "day": "Monday",
+    "power": 110,
+    "cost": 22,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e12",
+    "datetime": "2024-04-22T00:35:00.000Z",
+    "day": "Monday",
+    "power": 120,
+    "cost": 24,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e13",
+    "datetime": "2024-04-22T00:40:00.000Z",
+    "day": "Monday",
+    "power": 130,
+    "cost": 26,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e14",
+    "datetime": "2024-04-22T00:45:00.000Z",
+    "day": "Monday",
+    "power": 140,
+    "cost": 28,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e15",
+    "datetime": "2024-04-22T00:50:00.000Z",
+    "day": "Monday",
+    "power": 150,
+    "cost": 30,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e16",
+    "datetime": "2024-04-22T00:55:00.000Z",
+    "day": "Monday",
+    "power": 100,
+    "cost": 20,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e17",
+    "datetime": "2024-04-22T01:00:00.000Z",
+    "day": "Monday",
+    "power": 110,
+    "cost": 22,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e18",
+    "datetime": "2024-04-22T01:05:00.000Z",
+    "day": "Monday",
+    "power": 120,
+    "cost": 24,
+    "currentState": "New Jersey"
+  },
+  {
+    "_id": "6626e0d193d05b1263b06e19",
+    "datetime": "2024-04-22T01:10:00.000Z",
+    "day": "Monday",
+    "power": 130,
+    "cost": 26,
+    "currentState": "New Jersey"
+  }
+]
