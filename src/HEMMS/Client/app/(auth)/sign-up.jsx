@@ -9,9 +9,6 @@ import CustomButton from '../../components/CustomButton';
 import usStates from '../../constants/usStates';
 import { url } from '../../connection';
 
-// const port = 5050
-// const url = "http://192.168.1.154:" + port
-
 const SignUp = () => {
   const [form, setForm] = useState({
     username: '',
