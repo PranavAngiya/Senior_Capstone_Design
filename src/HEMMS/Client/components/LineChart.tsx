@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { curveBasis, line, scaleLinear, scaleTime } from "d3";
-import { Easing, View, Pressable, Text, StyleSheet } from "react-native";
+import { Easing, View, Pressable, Text, StyleSheet, Alert } from "react-native";
+import { url } from "../connection";
 import {
   Canvas,
   Line,
@@ -15,6 +16,37 @@ import {
 
 import { CostData, DataPoint, PowerData } from "../constants/Data";
 
+interface DataItem {
+  _id: string; // or whatever type _id is
+  datetime: Date; // or whatever type datetime is
+  day: string;
+  power: number;
+  cost: number;
+  currentState: string;
+}
+
+const receiveData = () => {
+  fetch( url + "/getalldata")
+    .then((response) => {
+      if (response.ok) {
+        // Store the data into a variable
+        return response.json();
+      }
+      else {
+        Alert.alert("Error", "Failed to get data");
+      }
+    })
+    .then(async (data : DataItem[]) => {
+      console.log(data);
+      // console.log("Current State: " + data[0].currentState);
+    })
+    .catch((error) => {
+      Alert.alert("Network Error", "Failed to connect to the server");
+    })
+
+}
+
+
 interface GraphData {
   min: number;
   max: number;
@@ -22,6 +54,7 @@ interface GraphData {
 }
 
 export const LineChart = () => {
+  receiveData();
   const transition = useValue<number>(1);
   const state = useValue<{
     current: number;
