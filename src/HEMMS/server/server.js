@@ -33,6 +33,7 @@ const dataSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User', userSchema, "Users");
+const Data = mongoose.model('Data', dataSchema, "Data");
 
 app.post('/signup', async (req, res) => {
     // recieve username, password, selectedState
@@ -70,7 +71,50 @@ app.get('/signin', async (req, res) => {
 
 app.get('/getalldata', async (req, res) => {
     const data = await Data.find();
-    res.status(200).json({ data: data });  
+    // console.log(data);
+    res.status(200).json({ "data": data[0] });  
 })
+
+// app.get('/getdata', async (req, res) => {
+//     const timeframe = req.query;
+    
+//     let startDate, endDate;
+
+//     if(timeframe === "day"){
+//         startDate = new Date();
+//         endDate = new Date();
+//         startDate.setHours(0, 0, 0, 0);
+//         endDate.setHours(23, 59, 59, 999);
+//     }
+//     else if (timeframe === "week"){
+//         const today = new Date();
+//         const dayoftoday = today.getDay();
+//         // start day is supposed to be the last monday from the current day, assuming the current day is not monday
+        
+
+
+//     }
+//     else if (timeframe === "month"){
+
+//     }
+//     else if (timeframe === "year"){
+
+//     }
+//     else{
+//         res.status(400).json({ message: 'Invalid timeframe' });
+//     }
+
+//     const data = await Data.find({ datetime: { $gte: startDate, $lte: endDate } });
+//     res.status(200).json({ data: data });
+
+
+// })
+
+const getAllData = async () => {
+    const data = await Data.find();
+    console.log(data[0].currentState);
+}
+
+getAllData();
 
 app.listen(port, () => console.log('Server running on port ' + port))
