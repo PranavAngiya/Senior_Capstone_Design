@@ -1,8 +1,8 @@
 import { LineChart } from "react-native-chart-kit";
 
-import data from '../../constants/data.json';
+import data from '../constants/data.json';
 
-const LineChart = () => {
+const CustomChart = () => {
   const labels = data.map((item, index) => {
     if (index % 3 === 0) {
       const date = new Date(item.datetime);
@@ -62,4 +62,4 @@ const LineChart = () => {
   );
 };
 
-export default LineChart;
+export default CustomChart;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, Image, RefreshControl, Dimensions } from 'react-native';
 
 import { images } from '../../constants';
-import LineChart from '../../components/LineChart';
+import CustomChart from '../../components/CustomChart';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -40,7 +40,7 @@ const Home = () => {
               </Text>
             </View>
 
-            <LineChart/>
+            <CustomChart/>
           </View>
         )}
 
