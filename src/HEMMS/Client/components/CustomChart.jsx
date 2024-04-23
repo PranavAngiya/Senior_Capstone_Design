@@ -1,5 +1,5 @@
 import { LineChart } from "react-native-chart-kit";
-
+import { View, SafeAreaView } from 'react-native';
 import data from '../constants/data.json';
 
 const CustomChart = () => {
