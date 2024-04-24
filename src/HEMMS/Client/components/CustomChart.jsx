@@ -14,43 +14,43 @@ const CustomChart = () => {
   }, []);
 
   const receiveData = () => {
-    const fetchurl = url + "/getdata?timeframe=day";
-    fetch(fetchurl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to get data");
-        }
-        return response.json();
-      })
-      .then((responseData) => {
-        if (!Array.isArray(responseData.data)) {
-          throw new Error("Received data is not in the expected format");
-        }
-  
-        const data = responseData.data;
-  
-        const labels = [];
-        const powerData = [];
-  
-        // Loop through data with a step of 50
-        for (let i = 0; i < data.length; i += 12) {
-          const item = data[i];
-          const date = new Date(item.datetime);
-          labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-          powerData.push(item.power);
-        }
-  
-        const dataset = [{
-          data: powerData
-        }];
-  
-        setChartData({ labels, dataset });
-      })
-      .catch((error) => {
-        Alert.alert("Network Error", error.message);
-      });
-  }
-  
+  const fetchurl = url + "/getdata?timeframe=day";
+  fetch(fetchurl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to get data");
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      if (!Array.isArray(responseData.data)) {
+        throw new Error("Received data is not in the expected format");
+      }
+
+      const data = responseData.data;
+
+      const labels = [];
+      const powerData = [];
+
+      // Loop through data with a step of 50
+      for (let i = 0; i < data.length; i += 12) {
+        const item = data[i];
+        const date = new Date(item.datetime);
+        labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+        powerData.push(item.power);
+      }
+
+      const dataset = [{
+        data: powerData
+      }];
+
+      setChartData({ labels, dataset });
+    })
+    .catch((error) => {
+      Alert.alert("Network Error", error.message);
+    });
+}
+
 
   return (
     <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>
