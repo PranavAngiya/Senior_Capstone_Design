@@ -1,31 +1,67 @@
+import React, { useState, useEffect } from 'react';
 import { LineChart } from "react-native-chart-kit";
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 
-import data from '../constants/data.json';
+import { url } from '../connection';
 
-const CustomChart = () => {
-  const labels = data.map((item, index) => {
-    if (index % 3 === 0) {
-      const date = new Date(item.datetime);
-      return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    } else {
-      return '';
-    }
+const CostChart = () => {
+  const [chartData, setChartData] = useState({
+    labels: [],
+    dataset: [{ data: [] }]
   });
-  const dataset = [{
-    data: data.map(item => item.cost)
-  }];
 
-  return ( 
-    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>  
+  useEffect(() => {
+    receiveData();
+  }, []);
+
+  const receiveData = () => {
+    const fetchurl = url + "/getdata?timeframe=day";
+    
+    fetch(fetchurl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to get data");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        if (!Array.isArray(responseData.data)) {
+          throw new Error("Received data is not in the expected format");
+        }
+
+        const data = responseData.data;
+        const labels = [];
+        const powerData = [];
+
+        for (let i = 0; i < data.length; i += 50) {
+          const item = data[i];
+          const date = new Date(item.datetime);
+
+          labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+          powerData.push(item.power);
+        }
+
+        const dataset = [{
+          data: powerData
+        }];
+
+        setChartData({ labels, dataset });
+      })
+      .catch((error) => {
+        Alert.alert("Network Error", error.message);
+      });
+  }
+
+  return (
+    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>
       <LineChart
         data={{
-          labels: labels,
-          datasets: dataset
+          labels: chartData.labels,
+          datasets: chartData.dataset
         }}
         width={350}
         height={300}
-        yAxisLabel="$"
+        yAxisSuffix=" kWh"
         yAxisInterval={1}
         chartConfig={{
           backgroundGradientFrom: "#fb8c00",
@@ -49,7 +85,6 @@ const CustomChart = () => {
             fontWeight: 'bold'
           }
         }}
-        // bezier
         withVerticalLines
         withHorizontalLines
         verticalLabelRotation={30}
@@ -62,4 +97,4 @@ const CustomChart = () => {
   );
 };
 
-export default CustomChart;
+export default CostChart;

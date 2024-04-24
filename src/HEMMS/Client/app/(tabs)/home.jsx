@@ -4,15 +4,12 @@ import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react
 import { images } from '../../constants';
 import PowerChart from '../../components/PowerChart';
 import CostChart from '../../components/CostChart';
-import receiveData from '../../components/receiveData';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
-
-    receiveData();
-
+    // re call home -> if any new data appeared
     setRefreshing(false);
   };
 
