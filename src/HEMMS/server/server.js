@@ -133,9 +133,40 @@ const getAllData = async () => {
     const data = await Data.find({ datetime: { $gte: startDate, $lte: endDate } });
     // console.log(data[0]);
     // console.log(data[data.length - 1]);
-    // console.log(data);
+    console.log(data);
 }
 
-getAllData();
+// getAllData();
+
+
+const SerialPort = require('serialport').SerialPort;
+// const Readline = require('@serialport/parser-readline');
+const { ReadlineParser } = require('@serialport/parser-readline');
+
+const portName = '/dev/cu.usbmodem141101'; // Example port name for Linux, may vary for Windows or macOS
+
+const arduinoport = new SerialPort({ path: '/dev/cu.usbmodem141101', baudRate: 9600 });
+
+const parser = arduinoport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+
+    // start time
+const startTime = new Date();
+parser.on('data', (data) => {
+    if(data)
+    {
+        console.log('Data from Arduino:', data.toString());
+
+        const endTime = new Date();
+        const elapsedTime = endTime - startTime;
+        console.log('Elapsed time:', elapsedTime, 'ms');
+        // startTime = Date();
+    }
+    // end time
+    // Do something with the received data
+});
+
+arduinoport.on('error', (err) => {
+    console.error('Error:', err.message);
+});
 
 app.listen(port, () => console.log('Server running on port ' + port))

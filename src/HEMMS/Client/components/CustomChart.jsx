@@ -29,7 +29,7 @@ const CustomChart = () => {
         }
       })
       .then(async (data) => {
-        // console.log(data);
+        console.log(data);
         // console.log("Current State: " + data[0].currentState);
       })
       .catch((error) => {
