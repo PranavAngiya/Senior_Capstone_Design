@@ -76,7 +76,9 @@ app.get('/getalldata', async (req, res) => {
 })
 
 app.get('/getdata', async (req, res) => {
-    const timeframe = req.query;
+    const { timeframe } = req.query;
+
+    // console.log(timeframe);
     
     let startDate, endDate;
 
