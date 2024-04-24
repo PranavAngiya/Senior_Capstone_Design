@@ -88,6 +88,15 @@ const PowerChart = () => {
         withVerticalLines
         withHorizontalLines
         verticalLabelRotation={30}
+        withCustomChartTitle={() => {
+          return (
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
+                Power vs Time
+              </Text>
+            </View>
+          );
+        }}
         style={{
           marginVertical: 20,
           borderRadius: 16
