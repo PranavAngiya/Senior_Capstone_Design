@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, FlatList, Image, RefreshControl, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
 
 import { images } from '../../constants';
 import CustomChart from '../../components/CustomChart';
+import receiveData from '../../components/receiveData';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
-    // re call graph -> if any new data appeared
+
+    receiveData();
+
     setRefreshing(false);
   };
 
