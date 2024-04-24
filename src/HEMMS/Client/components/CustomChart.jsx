@@ -1,67 +1,55 @@
-import React, { useState, useEffect } from 'react';
 import { LineChart } from "react-native-chart-kit";
-import { View, SafeAreaView, Alert } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
+import data from '../constants/data.json';
 import { url } from '../connection';
 
 const CustomChart = () => {
-  const [chartData, setChartData] = useState({
-    labels: [],
-    dataset: [{ data: [] }]
+  const labels = data.map((item, index) => {
+    if (index % 3 === 0) {
+      const date = new Date(item.datetime);
+      return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    } else {
+      return '';
+    }
   });
-
-  useEffect(() => {
-    receiveData();
-  }, []);
-
+  const dataset = [{
+    data: data.map(item => item.power)
+  }];
+  
   const receiveData = () => {
-  const fetchurl = url + "/getdata?timeframe=day";
-  fetch(fetchurl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to get data");
-      }
-      return response.json();
-    })
-    .then((responseData) => {
-      if (!Array.isArray(responseData.data)) {
-        throw new Error("Received data is not in the expected format");
-      }
+    const fetchurl = url + "/getdata?timeframe=day";
+    fetch( fetchurl)
+      .then((response) => {
+        if (response.ok) {
+          // Store the data into a variable
+          return response.json();
+        }
+        else {
+          Alert.alert("Error", "Failed to get data");
+        }
+      })
+      .then(async (data) => {
+        // console.log(data);
+        // console.log("Current State: " + data[0].currentState);
+      })
+      .catch((error) => {
+        Alert.alert("Network Error", "Failed to connect to the server");
+      })
+  }
 
-      const data = responseData.data;
-
-      const labels = [];
-      const powerData = [];
-
-      // Loop through data with a step of 50
-      for (let i = 0; i < data.length; i += 12) {
-        const item = data[i];
-        const date = new Date(item.datetime);
-        labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-        powerData.push(item.power);
-      }
-
-      const dataset = [{
-        data: powerData
-      }];
-
-      setChartData({ labels, dataset });
-    })
-    .catch((error) => {
-      Alert.alert("Network Error", error.message);
-    });
-}
-
-
-  return (
-    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>
+  receiveData();
+    
+  return ( 
+    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>  
       <LineChart
         data={{
-          labels: chartData.labels,
-          datasets: chartData.dataset
+          labels: labels,
+          datasets: dataset
         }}
         width={350}
         height={300}
-        yAxisSuffix=" $"
+        // yAxisLabel="$"
+        yAxisSuffix=" kWh"
         yAxisInterval={1}
         chartConfig={{
           backgroundGradientFrom: "#fb8c00",
@@ -85,6 +73,7 @@ const CustomChart = () => {
             fontWeight: 'bold'
           }
         }}
+        // bezier
         withVerticalLines
         withHorizontalLines
         verticalLabelRotation={30}
