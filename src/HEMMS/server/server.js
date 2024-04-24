@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const url = "mongodb+srv://username:SecurePassword@hemms.ctkost4.mongodb.net/HEMMS?retryWrites=true&w=majority&appName=HEMMS";
-const port = 5051
+const port = 5050
 
 const app = express();
 app.use(cors());
@@ -71,9 +71,7 @@ app.get('/signin', async (req, res) => {
 
 app.get('/getalldata', async (req, res) => {
     const data = await Data.find();
-
     // console.log(data);
-
     res.status(200).json({ "data": data[0] });  
 })
 
