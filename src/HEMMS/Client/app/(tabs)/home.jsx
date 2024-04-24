@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
 
 import { images } from '../../constants';
-import CustomChart from '../../components/CustomChart';
+import PowerChart from '../../components/PowerChart';
+import CostChart from '../../components/CostChart';
 import receiveData from '../../components/receiveData';
 
 const Home = () => {
@@ -43,7 +44,8 @@ const Home = () => {
               </Text>
             </View>
 
-            <CustomChart/>
+            <PowerChart/>
+            <CostChart/>
           </View>
         )}
 

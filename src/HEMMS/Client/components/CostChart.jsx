@@ -13,7 +13,7 @@ const CustomChart = () => {
     }
   });
   const dataset = [{
-    data: data.map(item => item.power)
+    data: data.map(item => item.cost)
   }];
 
   return ( 
@@ -25,8 +25,7 @@ const CustomChart = () => {
         }}
         width={350}
         height={300}
-        // yAxisLabel="$"
-        yAxisSuffix=" kWh"
+        yAxisLabel="$"
         yAxisInterval={1}
         chartConfig={{
           backgroundGradientFrom: "#fb8c00",
