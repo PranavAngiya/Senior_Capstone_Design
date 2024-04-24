@@ -1,14 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, FlatList, Image, RefreshControl, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Image, RefreshControl, Dimensions, Alert } from 'react-native';
 
 import { images } from '../../constants';
 import CustomChart from '../../components/CustomChart';
+import { url } from '../../connection';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
-    // re call graph -> if any new data appeared
+
+    console.log("Refreshing");
+
+    const receiveData = () => {
+      const fetchurl = url + "/getdata?timeframe=day";
+      fetch( fetchurl)
+        .then((response) => {
+          if (response.ok) {
+            // Store the data into a variable
+            return response.json();
+          }
+          else {
+            Alert.alert("Error", "Failed to get data");
+          }
+        })
+        .then(async (data) => {
+          console.log(data);
+          // console.log("Current State: " + data[0].currentState);
+        })
+        .catch((error) => {
+          Alert.alert("Network Error", "Failed to connect to the server");
+        })
+    }
+
+    receiveData();
+
+  receiveData();
+
+
     setRefreshing(false);
   };
 

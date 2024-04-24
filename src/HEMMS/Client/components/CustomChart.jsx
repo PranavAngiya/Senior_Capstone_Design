@@ -1,54 +1,65 @@
+import React, { useState, useEffect } from 'react';
 import { LineChart } from "react-native-chart-kit";
-import { View, SafeAreaView } from 'react-native';
-import data from '../constants/data.json';
+import { View, Alert } from 'react-native';
 import { url } from '../connection';
 
 const CustomChart = () => {
-  const labels = data.map((item, index) => {
-    if (index % 3 === 0) {
-      const date = new Date(item.datetime);
-      return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    } else {
-      return '';
-    }
+  const [chartData, setChartData] = useState({
+    labels: [],
+    dataset: [{ data: [] }]
   });
-  const dataset = [{
-    data: data.map(item => item.power)
-  }];
-  
+
+  useEffect(() => {
+    receiveData();
+  }, []);
+
   const receiveData = () => {
     const fetchurl = url + "/getdata?timeframe=day";
-    fetch( fetchurl)
+    fetch(fetchurl)
       .then((response) => {
-        if (response.ok) {
-          // Store the data into a variable
-          return response.json();
+        if (!response.ok) {
+          throw new Error("Failed to get data");
         }
-        else {
-          Alert.alert("Error", "Failed to get data");
-        }
+        return response.json();
       })
-      .then(async (data) => {
-        console.log(data);
-        // console.log("Current State: " + data[0].currentState);
+      .then((responseData) => {
+        if (!Array.isArray(responseData.data)) {
+          throw new Error("Received data is not in the expected format");
+        }
+
+        const data = responseData.data;
+
+        const labels = [];
+        const powerData = [];
+
+        // Loop through data with a step of 50
+        for (let i = 0; i < data.length; i += 12) {
+          const item = data[i];
+          const date = new Date(item.datetime);
+          labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+          powerData.push(item.cost);
+        }
+
+        const dataset = [{
+          data: powerData
+        }];
+
+        setChartData({ labels, dataset });
       })
       .catch((error) => {
-        Alert.alert("Network Error", "Failed to connect to the server");
-      })
+        Alert.alert("Network Error", error.message);
+      });
   }
 
-  receiveData();
-    
-  return ( 
-    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>  
+  return (
+    <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>
       <LineChart
         data={{
-          labels: labels,
-          datasets: dataset
+          labels: chartData.labels,
+          datasets: chartData.dataset
         }}
         width={350}
         height={300}
-        // yAxisLabel="$"
         yAxisSuffix=" kWh"
         yAxisInterval={1}
         chartConfig={{
@@ -73,7 +84,6 @@ const CustomChart = () => {
             fontWeight: 'bold'
           }
         }}
-        // bezier
         withVerticalLines
         withHorizontalLines
         verticalLabelRotation={30}
