@@ -86,9 +86,9 @@ app.get('/getdata', async (req, res) => {
         startDate = new Date();
         endDate = new Date();
         startDate.setUTCHours(0, 0, 0, 0);
-        startDate.setDate(startDate.getDate() - 1);
+        startDate.setDate(startDate.getDate());
         endDate.setUTCHours(23, 59, 59, 999);
-        endDate.setDate(endDate.getDate() - 1);
+        endDate.setDate(endDate.getDate());
     }
     // else if (timeframe === "week"){
     //     const today = new Date();
@@ -121,9 +121,9 @@ const getAllData = async () => {
     let startDate = new Date();
     let endDate = new Date();
     startDate.setUTCHours(0, 0, 0, 0);
-    startDate.setDate(startDate.getDate() - 1);
+    startDate.setDate(startDate.getDate() );
     endDate.setUTCHours(23, 59, 59, 999);
-    endDate.setDate(endDate.getDate() - 1);
+    endDate.setDate(endDate.getDate());
     
 
     // console.log("\n\nStart Date: " + startDate, "\nEnd Date: " + endDate + "\n\n");
@@ -133,10 +133,10 @@ const getAllData = async () => {
     const data = await Data.find({ datetime: { $gte: startDate, $lte: endDate } });
     // console.log(data[0]);
     // console.log(data[data.length - 1]);
-    console.log(data);
+    console.log(data[0]);
 }
 
-// getAllData();
+getAllData();
 
 
 const SerialPort = require('serialport').SerialPort;
@@ -149,20 +149,70 @@ const arduinoport = new SerialPort({ path: '/dev/cu.usbmodem141101', baudRate: 9
 
 const parser = arduinoport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
-    // start time
-const startTime = new Date();
+
+let totalEnergy = 0;
+let energyreset = 0;
+
+
+async function checkTime() {
+    const currentDate = new Date();
+    const minutes = currentDate.getMinutes();
+    
+    // Check if minutes is divisible by 5
+    if (minutes % 5 === 0) {
+        // console.log("Current time is divisible by 5:", currentDate.toLocaleTimeString());
+        // console.log("Total Energy: " + totalEnergy);
+        if(energyreset === 0){ //we have not reset the energy yet
+            //store into database
+            let newcost = totalEnergy * 0.1564;
+
+            //update databse with the new power and cost values for the current time
+
+            const currentDate = new Date();
+            // subtract 4 hours from the current time
+
+            currentDate.setHours(currentDate.getHours() - 4);
+            currentDate.setSeconds(0);
+            currentDate.setMilliseconds(0);
+
+            const documenttoupdate = await Data.findOne({ datetime: currentDate });
+            
+            console.log(documenttoupdate);
+
+            documenttoupdate.power = totalEnergy;
+            documenttoupdate.cost = newcost;
+
+            await documenttoupdate.save();
+
+            console.log("Updated Document");
+
+            totalEnergy = 0;
+            energyreset = 1;
+        }
+        //store into database
+
+    }
+    else {
+        if(energyreset === 1){      //we have not reset the energy yet
+            energyreset = 0;
+        }
+    }
+}
+
+// Call the function immediately to check the time on start
+checkTime();
+
+// Set interval to check time every second
+setInterval(checkTime, 1000);
+
 parser.on('data', (data) => {
     if(data)
     {
-        console.log('Data from Arduino:', data.toString());
+        // console.log('Data from Arduino:', data.toString());
+        totalEnergy = totalEnergy + (parseFloat(data.toString()) * 0.00263889);
+        // console.log("Total Energy: " + totalEnergy);
 
-        const endTime = new Date();
-        const elapsedTime = endTime - startTime;
-        console.log('Elapsed time:', elapsedTime, 'ms');
-        // startTime = Date();
     }
-    // end time
-    // Do something with the received data
 });
 
 arduinoport.on('error', (err) => {

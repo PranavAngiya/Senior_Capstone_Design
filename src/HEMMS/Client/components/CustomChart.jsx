@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart } from "react-native-chart-kit";
-import { View, Alert } from 'react-native';
+import { View, Alert, Dimensions } from 'react-native';
 import { url } from '../connection';
 
 const CustomChart = () => {
@@ -33,7 +33,7 @@ const CustomChart = () => {
         const powerData = [];
 
         // Loop through data with a step of 50
-        for (let i = 0; i < data.length; i += 12) {
+        for (let i = 0; i < data.length; i += 1) {
           const item = data[i];
           const date = new Date(item.datetime);
           labels.push(date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
@@ -51,6 +51,8 @@ const CustomChart = () => {
       });
   }
 
+
+  
   return (
     <View style={{ alignItems: 'center', paddingHorizontal: 20 }}>
       <LineChart
@@ -58,9 +60,9 @@ const CustomChart = () => {
           labels: chartData.labels,
           datasets: chartData.dataset
         }}
-        width={350}
+        width={Dimensions.get("window").width - 20}
         height={300}
-        yAxisSuffix=" kWh"
+        yAxisLabel="$ "
         yAxisInterval={1}
         chartConfig={{
           backgroundGradientFrom: "#fb8c00",

@@ -4,8 +4,9 @@ from datetime import datetime, timedelta
 
 # Function to generate random power and calculate cost
 def generate_data():
-    power = round(random.uniform(100, 200), 2)
-    cost = round(power * 0.1564, 2)
+    # power = round(random.uniform(0.00072,0.00078), 7)
+    power = 0
+    cost = round(power * 0.1564, 7)
     return power, cost
 
 # Function to generate day of the week
@@ -36,6 +37,6 @@ def generate_csv(start_date, end_date):
     df.to_csv('example_data.csv', index=False)
 
 # Example usage
-start_date = datetime(2024, 1, 1)
-end_date = datetime(2024, 4, 24)
+start_date = datetime(2024, 4, 24)
+end_date = datetime(2024, 4, 25)
 generate_csv(start_date, end_date)
