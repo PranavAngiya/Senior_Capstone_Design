@@ -136,7 +136,7 @@ const getAllData = async () => {
     console.log(data[0]);
 }
 
-getAllData();
+// getAllData();
 
 
 const SerialPort = require('serialport').SerialPort;
@@ -177,14 +177,14 @@ async function checkTime() {
 
             const documenttoupdate = await Data.findOne({ datetime: currentDate });
             
-            console.log(documenttoupdate);
-
             documenttoupdate.power = totalEnergy;
             documenttoupdate.cost = newcost;
 
             await documenttoupdate.save();
 
             console.log("Updated Document");
+            console.log(documenttoupdate);
+            
 
             totalEnergy = 0;
             energyreset = 1;
