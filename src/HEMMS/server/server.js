@@ -86,9 +86,12 @@ app.get('/getdata', async (req, res) => {
         startDate = new Date();
         endDate = new Date();
         startDate.setUTCHours(0, 0, 0, 0);
-        startDate.setDate(startDate.getDate());
+        startDate.setDate(startDate.getDate()-8);
         endDate.setUTCHours(23, 59, 59, 999);
-        endDate.setDate(endDate.getDate());
+        endDate.setDate(endDate.getDate()-8);
+
+        console.log(startDate);
+        console.log(endDate);
     }
     // else if (timeframe === "week"){
     //     const today = new Date();
@@ -105,7 +108,10 @@ app.get('/getdata', async (req, res) => {
     // }
     else{
         res.status(400).json({ message: 'Invalid timeframe' });
+        console.log("Invalid timeframe");
     }
+
+
 
     const data = await Data.find({ datetime: { $gte: startDate, $lte: endDate } });
     res.status(200).json({ data: data });
@@ -177,13 +183,15 @@ async function checkTime() {
 
             const documenttoupdate = await Data.findOne({ datetime: currentDate });
             
-            documenttoupdate.power = totalEnergy;
-            documenttoupdate.cost = newcost;
+            if(documenttoupdate !== null){
+                documenttoupdate.power = totalEnergy;
+                documenttoupdate.cost = newcost;
 
-            await documenttoupdate.save();
+                await documenttoupdate.save();
 
-            console.log("Updated Document");
-            console.log(documenttoupdate);
+                console.log("Updated Document");
+                console.log(documenttoupdate);
+            }
             
 
             totalEnergy = 0;
